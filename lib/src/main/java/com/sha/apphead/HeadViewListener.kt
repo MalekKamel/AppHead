@@ -1,7 +1,7 @@
 package com.sha.apphead
 
 interface HeadViewListener {
-    fun onDismiss(view: ChatHeadView)
-    fun onClick(view: ChatHeadView)
-    fun onLongClick(view: ChatHeadView)
+    fun onDismiss(view: AppHeadView)
+    fun onClick(view: AppHeadView)
+    fun onLongClick(view: AppHeadView)
 }

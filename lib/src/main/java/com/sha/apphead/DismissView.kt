@@ -8,7 +8,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.core.view.ViewCompat
 import kotlin.math.ceil
+
 
 class DismissView: RelativeLayout {
 
@@ -53,6 +55,7 @@ class DismissView: RelativeLayout {
             image.setImageResource(dismissDrawableRes)
             onFinishDismissViewInflate?.invoke(this@DismissView)
         }
+        image.alpha = 0.8f
     }
 
     private fun setup() {
@@ -71,6 +74,9 @@ class DismissView: RelativeLayout {
         params.y = yCord
 
         WindowManagerHelper.updateViewLayout(this, params)
+        ViewCompat.setTranslationZ(this, 1f)
+        bringToFront()
+        requestLayout()
     }
 
     fun move() {

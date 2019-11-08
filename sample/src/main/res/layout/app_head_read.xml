@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sha.apphead.ChatHeadView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sha.apphead.AppHeadView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <ImageView
         android:id="@+id/headImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_messenger_red"
+        android:layout_margin="4dp"
         />
 
-</com.sha.apphead.ChatHeadView>
+</com.sha.apphead.AppHeadView>

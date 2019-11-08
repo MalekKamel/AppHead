@@ -16,26 +16,22 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.core.view.ViewCompat
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.exp
 
-class ChatHeadView : RelativeLayout {
+class AppHeadView : RelativeLayout {
 
     private val showDismissAfter = 200L
 
     private lateinit var windowManager: WindowManager
 
-    private fun setup() {
-        windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        windowManager.defaultDisplay.getSize(szWindow)
-        dismissView = DismissView.setup(context);
-    }
-
     lateinit var listener: HeadViewListener
 
     private lateinit var dismissView: DismissView
+    private lateinit var image: ImageView
 
     private val szWindow = Point()
 
@@ -81,11 +77,19 @@ class ChatHeadView : RelativeLayout {
         setup()
     }
 
+    private fun setup() {
+        windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.defaultDisplay.getSize(szWindow)
+    }
+
     override fun onFinishInflate() {
         super.onFinishInflate()
         Head.args!!.run {
-            findViewById<ImageView>(headImageViewId).setImageResource(headDrawableRes)
-            onFinishHeadViewInflate?.invoke(this@ChatHeadView)
+            image = findViewById<ImageView>(headImageViewId).apply {
+                setImageResource(headDrawableRes)
+            }
+            loadHeadImage?.invoke(image)
+            onFinishHeadViewInflate?.invoke(this@AppHeadView)
         }
     }
 
@@ -227,12 +231,12 @@ class ChatHeadView : RelativeLayout {
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
                 mParams.x = 0 - bounceValue(step, x.toLong()).toInt()
-                WindowManagerHelper.updateViewLayout(this@ChatHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
             }
 
             override fun onFinish() {
                 mParams.x = 0
-                WindowManagerHelper.updateViewLayout(this@ChatHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
             }
         }.start()
     }
@@ -243,12 +247,12 @@ class ChatHeadView : RelativeLayout {
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
                 mParams.x = szWindow.x + bounceValue(step, xCord.toLong()).toInt() - width
-                WindowManagerHelper.updateViewLayout(this@ChatHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
             }
 
             override fun onFinish() {
                 mParams.x = szWindow.x - width
-                WindowManagerHelper.updateViewLayout(this@ChatHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
             }
         }.start()
     }
@@ -307,8 +311,9 @@ class ChatHeadView : RelativeLayout {
     }
 
     companion object {
-        fun setup(context: Context): ChatHeadView {
-            val view: ChatHeadView = LayoutInflaterHelper.inflateView(Head.args!!.headLayoutRes, context)
+        fun setup(context: Context): AppHeadView {
+
+            val view: AppHeadView = LayoutInflaterHelper.inflateView(Head.args!!.headLayoutRes, context)
 
             val params = WindowManagerHelper.overlayParams()
             params.gravity = Gravity.TOP or Gravity.START
@@ -316,6 +321,9 @@ class ChatHeadView : RelativeLayout {
             params.y = 100
 
             WindowManagerHelper.manager(context).addView(view, params)
+
+            val dismissView = DismissView.setup(context)
+            view.dismissView = dismissView
 
             return view
         }

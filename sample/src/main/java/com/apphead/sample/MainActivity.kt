@@ -39,7 +39,7 @@ class MainActivity : FragmentActivity() {
                     }
                     .onLongClick { log("onLongClick") }
                     .dismissViewScaleRatio(1.0)
-                    .dismissDrawableRes(R.drawable.ic_dimiss)
+                    .dismissDrawableRes(R.drawable.ic_dismiss)
                     .dismissOnClick(false)
                     .onFinishHeadViewInflate { log("onFinishHeadViewInflate")  }
                     .onFinishDismissViewInflate {  log("onFinishDismissViewInflate") }

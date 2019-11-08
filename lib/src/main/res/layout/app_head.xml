@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sha.apphead.ChatHeadView
+<com.sha.apphead.AppHeadView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -8,6 +8,7 @@
         android:id="@+id/ivHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         />
 
-</com.sha.apphead.ChatHeadView>
+</com.sha.apphead.AppHeadView>

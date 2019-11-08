@@ -1,5 +1,6 @@
 package com.sha.apphead
 
+import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
@@ -39,8 +40,13 @@ object Head {
             return this
         }
 
-        fun onFinishHeadViewInflate(listener: ((ChatHeadView) -> Unit)?): Builder {
+        fun onFinishHeadViewInflate(listener: ((AppHeadView) -> Unit)?): Builder {
             args!!.onFinishHeadViewInflate = listener
+            return this
+        }
+
+        fun loadHeadImage(listener: ((ImageView) -> Unit)?): Builder {
+            args!!.loadHeadImage = listener
             return this
         }
 
@@ -49,17 +55,17 @@ object Head {
             return this
         }
 
-        fun onClick(listener: ((ChatHeadView) -> Unit)?): Builder {
+        fun onClick(listener: ((AppHeadView) -> Unit)?): Builder {
             args!!.onClick = listener
             return this
         }
 
-        fun onLongClick(listener: ((ChatHeadView) -> Unit)?): Builder {
+        fun onLongClick(listener: ((AppHeadView) -> Unit)?): Builder {
             args!!.onLongClick = listener
             return this
         }
 
-        fun onDismiss(listener: ((ChatHeadView) -> Unit)?): Builder {
+        fun onDismiss(listener: ((AppHeadView) -> Unit)?): Builder {
             args!!.onDismiss = listener
             return this
         }
