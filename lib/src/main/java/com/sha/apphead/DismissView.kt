@@ -10,9 +10,13 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import kotlin.math.ceil
 
-class DismissHeadView: RelativeLayout {
+class DismissView: RelativeLayout {
 
-    val scaleRatio = 1.5
+    val boundsRatio
+        get() = 1.5
+
+    val scaleRatio
+        get() = Head.args!!.dismissViewScaleRatio
 
     private lateinit var image: ImageView
 
@@ -44,9 +48,10 @@ class DismissHeadView: RelativeLayout {
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        image = findViewById(Head.args!!.dismissImageViewId)
-        Head.args?.run {
+        Head.args!!.run {
+            image = findViewById(dismissImageViewId)
             image.setImageResource(dismissDrawableRes)
+            onFinishDismissViewInflate?.invoke(this@DismissView)
         }
     }
 
@@ -55,17 +60,17 @@ class DismissHeadView: RelativeLayout {
         windowManager.defaultDisplay.getSize(szWindow)
     }
 
-    fun onHeadInBound(xCordRemove: Int, yCordRemove: Int) {
+    fun onHeadInBounds(xCord: Int, yCord: Int) {
         if (imgHeight != currentHeight) return
 
         imgWidth = (currentWidth * scaleRatio).toInt()
         imgHeight = (currentHeight * scaleRatio).toInt()
 
-        val paramRemove = layoutParams as WindowManager.LayoutParams
-        paramRemove.x = xCordRemove
-        paramRemove.y = yCordRemove
+        val params = layoutParams as WindowManager.LayoutParams
+        params.x = xCord
+        params.y = yCord
 
-        WindowManagerHelper.updateViewLayout(this, paramRemove)
+        WindowManagerHelper.updateViewLayout(this, params)
     }
 
     fun move() {
@@ -89,10 +94,10 @@ class DismissHeadView: RelativeLayout {
     }
 
     companion object {
-        fun setup(context: Context): DismissHeadView {
+        fun setup(context: Context): DismissView {
             val view = LayoutInflaterHelper.inflateView<View>(Head.args!!.dismissLayoutRes, context)
 
-            require(view is DismissHeadView) { "The root view of dismiss_view view must be DismissHeadView!" }
+            require(view is DismissView) { "The root view of dismiss_view view must be DismissHeadView!" }
 
             val params = WindowManagerHelper.overlayParams()
             params.gravity = Gravity.TOP or Gravity.START

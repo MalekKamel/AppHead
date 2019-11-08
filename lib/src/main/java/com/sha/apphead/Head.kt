@@ -29,8 +29,23 @@ object Head {
             return this
         }
 
+        fun dismissViewScaleRatio(ratio: Double): Builder {
+            args!!.dismissViewScaleRatio = ratio
+            return this
+        }
+
         fun dismissOnClick(dismiss: Boolean): Builder {
             args!!.dismissOnClick = dismiss
+            return this
+        }
+
+        fun onFinishHeadViewInflate(listener: ((ChatHeadView) -> Unit)?): Builder {
+            args!!.onFinishHeadViewInflate = listener
+            return this
+        }
+
+        fun onFinishDismissViewInflate(listener: ((DismissView) -> Unit)?): Builder {
+            args!!.onFinishDismissViewInflate = listener
             return this
         }
 

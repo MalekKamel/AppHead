@@ -5,7 +5,6 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Point
-import android.media.Image
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.Handler
@@ -31,12 +30,12 @@ class ChatHeadView : RelativeLayout {
     private fun setup() {
         windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         windowManager.defaultDisplay.getSize(szWindow)
-        dismissHeadView = DismissHeadView.setup(context);
+        dismissView = DismissView.setup(context);
     }
 
     lateinit var listener: HeadViewListener
 
-    private lateinit var dismissHeadView: DismissHeadView
+    private lateinit var dismissView: DismissView
 
     private val szWindow = Point()
 
@@ -59,7 +58,7 @@ class ChatHeadView : RelativeLayout {
         Log.d(javaClass.simpleName, "Into runnableLongClick")
 
         isLongClick = true
-        dismissHeadView.visibility = View.VISIBLE
+        dismissView.visibility = View.VISIBLE
         onLongClick()
     }
 
@@ -84,8 +83,10 @@ class ChatHeadView : RelativeLayout {
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        findViewById<ImageView>(Head.args!!.headImageViewId)
-                .setImageResource(Head.args!!.headDrawableRes)
+        Head.args!!.run {
+            findViewById<ImageView>(headImageViewId).setImageResource(headDrawableRes)
+            onFinishHeadViewInflate?.invoke(this@ChatHeadView)
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -118,8 +119,8 @@ class ChatHeadView : RelativeLayout {
         timeStart = System.currentTimeMillis()
         handlerLongClick.postDelayed(runnableLongClick, showDismissAfter)
 
-        dismissHeadView.currentWidth = dismissHeadView.imgWidth
-        dismissHeadView.currentHeight = dismissHeadView.imgHeight
+        dismissView.currentWidth = dismissView.imgWidth
+        dismissView.currentHeight = dismissView.imgHeight
 
         xInitCord = xCord
         yInitCord = yCord
@@ -137,7 +138,7 @@ class ChatHeadView : RelativeLayout {
         if (isLongClick) {
             if (handleHeadInBounds(xCord, yCord)) return
             inBounded = false
-            dismissHeadView.move()
+            dismissView.move()
         }
 
         params.x = xInitMargin + xDiffMove
@@ -147,18 +148,18 @@ class ChatHeadView : RelativeLayout {
     }
 
     private fun handleHeadInBounds(xCord: Int, yCord: Int): Boolean {
-        val xBoundStart = szWindow.x / 2 - (dismissHeadView.currentWidth * dismissHeadView.scaleRatio).toInt()
-        val xBoundEnd = szWindow.x / 2 + (dismissHeadView.currentWidth * dismissHeadView.scaleRatio).toInt()
-        val yBoundTop = szWindow.y - (dismissHeadView.currentHeight * dismissHeadView.scaleRatio).toInt()
+        val xBoundStart = szWindow.x / 2 - (dismissView.currentWidth * dismissView.boundsRatio).toInt()
+        val xBoundEnd = szWindow.x / 2 + (dismissView.currentWidth * dismissView.boundsRatio).toInt()
+        val yBoundTop = szWindow.y - (dismissView.currentHeight * dismissView.boundsRatio).toInt()
 
         val isInBounds = xCord in xBoundStart..xBoundEnd && yCord >= yBoundTop
         if (!isInBounds) return false
 
-        val xCordDismiss = ((szWindow.x - dismissHeadView.currentHeight * dismissHeadView.scaleRatio) / 2).toInt()
-        val yCordDismiss = (szWindow.y - (dismissHeadView.currentWidth * dismissHeadView.scaleRatio + statusBarHeight)).toInt()
+        val xCordDismiss = ((szWindow.x - dismissView.currentHeight * dismissView.scaleRatio) / 2).toInt()
+        val yCordDismiss = (szWindow.y - (dismissView.currentWidth * dismissView.scaleRatio + statusBarHeight)).toInt()
         inBounded = true
 
-        dismissHeadView.onHeadInBound(xCordDismiss, yCordDismiss)
+        dismissView.onHeadInBounds(xCordDismiss, yCordDismiss)
         onHeadInBound(xCordDismiss, yCordDismiss)
 
         return true
@@ -167,7 +168,7 @@ class ChatHeadView : RelativeLayout {
     private fun onUp(xCord: Int, yCord: Int) {
         isLongClick = false
 
-        dismissHeadView.reset()
+        dismissView.reset()
 
         handlerLongClick.removeCallbacks(runnableLongClick)
 
@@ -206,9 +207,9 @@ class ChatHeadView : RelativeLayout {
         params.y = yCordDestination
     }
 
-    private fun onHeadInBound(xCordRemove: Int, yCordRemove: Int) {
-        params.x = xCordRemove + abs(dismissHeadView.width - width) / 2
-        params.y = yCordRemove + abs(dismissHeadView.height - height) / 2
+    private fun onHeadInBound(xCordDismiss: Int, yCordDismiss: Int) {
+        params.x = xCordDismiss + abs(dismissView.width - width) / 2
+        params.y = yCordDismiss + abs(dismissView.height - height) / 2
 
         WindowManagerHelper.updateViewLayout(this, layoutParams)
     }
@@ -263,14 +264,14 @@ class ChatHeadView : RelativeLayout {
     private fun onLongClick() {
         Log.d(javaClass.simpleName, "Into ChatHeadView.onLongClick() ")
 
-        val paramRemove = dismissHeadView.layoutParams as WindowManager.LayoutParams
-        val xCordRemove = (szWindow.x - dismissHeadView.width) / 2
-        val yCordRemove = szWindow.y - (dismissHeadView.height + statusBarHeight)
+        val paramDismiss = dismissView.layoutParams as WindowManager.LayoutParams
+        val xCordDismiss = (szWindow.x - dismissView.width) / 2
+        val yCordDismiss = szWindow.y - (dismissView.height + statusBarHeight)
 
-        paramRemove.x = xCordRemove
-        paramRemove.y = yCordRemove
+        paramDismiss.x = xCordDismiss
+        paramDismiss.y = yCordDismiss
 
-        WindowManagerHelper.updateViewLayout(dismissHeadView, paramRemove)
+        WindowManagerHelper.updateViewLayout(dismissView, paramDismiss)
 
         listener.onLongClick(this)
     }
