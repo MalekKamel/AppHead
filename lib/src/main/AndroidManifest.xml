@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sha.apphead">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application>
+
+        <service
+            android:enabled="true"
+            android:exported="false"
+            android:name=".ChatHeadService"/>
+
+    </application>
+</manifest>
