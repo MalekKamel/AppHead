@@ -7,7 +7,7 @@ import android.os.IBinder
 import android.view.WindowManager
 
 class ChatHeadService : Service() {
-    private lateinit var appHeadView: AppHeadView
+    private lateinit var headView: HeadView
 
     private lateinit var windowManager: WindowManager
 
@@ -22,21 +22,21 @@ class ChatHeadService : Service() {
     }
 
     private fun setupChatHeadView() {
-        appHeadView = AppHeadView.setup(this)
+        headView = HeadView.setup(this)
 
-        appHeadView.listener = object: HeadViewListener {
+        headView.listener = object: HeadViewListener {
 
-            override fun onDismiss(view: AppHeadView) {
+            override fun onDismiss(view: HeadView) {
                 Head.args?.onDismiss?.invoke(view)
                 stopSelf()
             }
 
-            override fun onClick(view: AppHeadView) {
+            override fun onClick(view: HeadView) {
                 Head.args?.onClick?.invoke(view)
                 if (Head.args?.dismissOnClick == true) stopSelf()
             }
 
-            override fun onLongClick(view: AppHeadView) {
+            override fun onLongClick(view: HeadView) {
                 Head.args?.onLongClick?.invoke(view)
             }
         }
@@ -44,7 +44,7 @@ class ChatHeadService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        windowManager.removeView(appHeadView)
+        windowManager.removeView(headView)
         // clean up singleton to avoid memory leaks
         Head.args = null
     }

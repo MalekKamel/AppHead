@@ -5,6 +5,8 @@ import android.widget.ImageView
 internal data class AppHeadArgs(
         var headDrawableRes: Int = 0,
         var dismissViewScaleRatio: Double = 1.5,
+        var headViewAlpha: Float = 1f,
+        var dismissViewAlpha: Float = 0.8f,
         var headLayoutRes: Int = R.layout.app_head,
         var headImageViewId: Int = R.id.ivHead,
         var dismissLayoutRes: Int = R.layout.dismiss_view,
@@ -12,9 +14,9 @@ internal data class AppHeadArgs(
         var dismissImageViewId: Int = R.id.ivDismiss,
         var dismissOnClick: Boolean = true,
         var loadHeadImage: ((ImageView) -> Unit)? = null,
-        var onFinishHeadViewInflate: ((AppHeadView) -> Unit)? = null,
+        var onFinishHeadViewInflate: ((HeadView) -> Unit)? = null,
         var onFinishDismissViewInflate: ((DismissView) -> Unit)? = null,
-        var onClick: ((AppHeadView) -> Unit)? = null,
-        var onLongClick: ((AppHeadView) -> Unit)? = null,
-        var onDismiss: ((AppHeadView) -> Unit)? = null
+        var onClick: ((HeadView) -> Unit)? = null,
+        var onLongClick: ((HeadView) -> Unit)? = null,
+        var onDismiss: ((HeadView) -> Unit)? = null
 )

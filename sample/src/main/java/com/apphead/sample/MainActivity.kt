@@ -41,6 +41,8 @@ class MainActivity : FragmentActivity() {
                     .dismissViewScaleRatio(1.0)
                     .dismissDrawableRes(R.drawable.ic_dismiss)
                     .dismissOnClick(false)
+                    .headViewAlpha(0.8f)
+                    .dismissViewAlpha(0.5f)
                     .onFinishHeadViewInflate { log("onFinishHeadViewInflate")  }
                     .onFinishDismissViewInflate {  log("onFinishDismissViewInflate") }
                     .onDismiss { log("onDismiss") }

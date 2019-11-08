@@ -16,13 +16,12 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import androidx.core.view.ViewCompat
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.exp
 
-class AppHeadView : RelativeLayout {
+class HeadView : RelativeLayout {
 
     private val showDismissAfter = 200L
 
@@ -89,7 +88,8 @@ class AppHeadView : RelativeLayout {
                 setImageResource(headDrawableRes)
             }
             loadHeadImage?.invoke(image)
-            onFinishHeadViewInflate?.invoke(this@AppHeadView)
+            image.alpha = headViewAlpha
+            onFinishHeadViewInflate?.invoke(this@HeadView)
         }
     }
 
@@ -231,12 +231,12 @@ class AppHeadView : RelativeLayout {
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
                 mParams.x = 0 - bounceValue(step, x.toLong()).toInt()
-                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
             }
 
             override fun onFinish() {
                 mParams.x = 0
-                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
             }
         }.start()
     }
@@ -247,12 +247,12 @@ class AppHeadView : RelativeLayout {
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
                 mParams.x = szWindow.x + bounceValue(step, xCord.toLong()).toInt() - width
-                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
             }
 
             override fun onFinish() {
                 mParams.x = szWindow.x - width
-                WindowManagerHelper.updateViewLayout(this@AppHeadView, mParams)
+                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
             }
         }.start()
     }
@@ -311,9 +311,11 @@ class AppHeadView : RelativeLayout {
     }
 
     companion object {
-        fun setup(context: Context): AppHeadView {
+        fun setup(context: Context): HeadView {
 
-            val view: AppHeadView = LayoutInflaterHelper.inflateView(Head.args!!.headLayoutRes, context)
+            val view: View = LayoutInflaterHelper.inflateView(Head.args!!.headLayoutRes, context)
+
+            require(view is HeadView) { "The root view of head view must be HeadView!" }
 
             val params = WindowManagerHelper.overlayParams()
             params.gravity = Gravity.TOP or Gravity.START

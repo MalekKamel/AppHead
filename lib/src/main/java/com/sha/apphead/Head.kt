@@ -35,12 +35,22 @@ object Head {
             return this
         }
 
+        fun headViewAlpha(alpha: Float): Builder {
+            args!!.headViewAlpha = alpha
+            return this
+        }
+
+        fun dismissViewAlpha(alpha: Float): Builder {
+            args!!.dismissViewAlpha = alpha
+            return this
+        }
+
         fun dismissOnClick(dismiss: Boolean): Builder {
             args!!.dismissOnClick = dismiss
             return this
         }
 
-        fun onFinishHeadViewInflate(listener: ((AppHeadView) -> Unit)?): Builder {
+        fun onFinishHeadViewInflate(listener: ((HeadView) -> Unit)?): Builder {
             args!!.onFinishHeadViewInflate = listener
             return this
         }
@@ -55,17 +65,17 @@ object Head {
             return this
         }
 
-        fun onClick(listener: ((AppHeadView) -> Unit)?): Builder {
+        fun onClick(listener: ((HeadView) -> Unit)?): Builder {
             args!!.onClick = listener
             return this
         }
 
-        fun onLongClick(listener: ((AppHeadView) -> Unit)?): Builder {
+        fun onLongClick(listener: ((HeadView) -> Unit)?): Builder {
             args!!.onLongClick = listener
             return this
         }
 
-        fun onDismiss(listener: ((AppHeadView) -> Unit)?): Builder {
+        fun onDismiss(listener: ((HeadView) -> Unit)?): Builder {
             args!!.onDismiss = listener
             return this
         }

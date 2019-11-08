@@ -53,9 +53,9 @@ class DismissView: RelativeLayout {
         Head.args!!.run {
             image = findViewById(dismissImageViewId)
             image.setImageResource(dismissDrawableRes)
+            image.alpha = dismissViewAlpha
             onFinishDismissViewInflate?.invoke(this@DismissView)
         }
-        image.alpha = 0.8f
     }
 
     private fun setup() {
@@ -101,9 +101,9 @@ class DismissView: RelativeLayout {
 
     companion object {
         fun setup(context: Context): DismissView {
-            val view = LayoutInflaterHelper.inflateView<View>(Head.args!!.dismissLayoutRes, context)
+            val view: View = LayoutInflaterHelper.inflateView(Head.args!!.dismissLayoutRes, context)
 
-            require(view is DismissView) { "The root view of dismiss_view view must be DismissHeadView!" }
+            require(view is DismissView) { "The root view of dismiss view must be DismissView!" }
 
             val params = WindowManagerHelper.overlayParams()
             params.gravity = Gravity.TOP or Gravity.START
