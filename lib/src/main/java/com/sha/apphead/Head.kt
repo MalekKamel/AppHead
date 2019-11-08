@@ -1,23 +1,26 @@
 package com.sha.apphead
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 
 object Head {
-    var args: AppHeadArgs? = null
+    internal var args: AppHeadArgs? = null
 
     class Builder(@DrawableRes private val headDrawableRes: Int) {
         init {
             args = AppHeadArgs()
         }
 
-        fun headLayoutRes(@LayoutRes res: Int): Builder {
-            args!!.headDrawableRes = res
+        fun headLayoutRes(@LayoutRes layoutRes: Int, @IdRes imageViewId: Int): Builder {
+            args!!.headLayoutRes = layoutRes
+            args!!.headImageViewId = imageViewId
             return this
         }
 
-        fun dismissLayoutRes(@LayoutRes res: Int): Builder {
-            args!!.dismissLayoutRes = res
+        fun dismissLayoutRes(@LayoutRes layoutRes: Int, @IdRes imageViewId: Int): Builder {
+            args!!.dismissLayoutRes = layoutRes
+            args!!.dismissImageViewId = imageViewId
             return this
         }
 

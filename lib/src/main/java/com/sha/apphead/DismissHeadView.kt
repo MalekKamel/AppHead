@@ -39,13 +39,15 @@ class DismissHeadView: RelativeLayout {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int)
             : super(context, attrs, defStyle) {
-        image.setImageResource(Head.args!!.dismissDrawableRes)
         setup()
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-       image = findViewById(R.id.image)
+        image = findViewById(Head.args!!.dismissImageViewId)
+        Head.args?.run {
+            image.setImageResource(dismissDrawableRes)
+        }
     }
 
     private fun setup() {
@@ -88,7 +90,9 @@ class DismissHeadView: RelativeLayout {
 
     companion object {
         fun setup(context: Context): DismissHeadView {
-            val view: DismissHeadView = LayoutInflaterHelper.inflateView(Head.args!!.dismissLayoutRes, context)
+            val view = LayoutInflaterHelper.inflateView<View>(Head.args!!.dismissLayoutRes, context)
+
+            require(view is DismissHeadView) { "The root view of dismiss_view view must be DismissHeadView!" }
 
             val params = WindowManagerHelper.overlayParams()
             params.gravity = Gravity.TOP or Gravity.START

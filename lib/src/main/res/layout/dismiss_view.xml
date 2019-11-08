@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
      <ImageView
-         android:id="@+id/image"
+         android:id="@+id/ivDismiss"
          android:layout_width="80dp"
          android:layout_height="80dp"
          android:src="@drawable/dismiss"

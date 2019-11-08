@@ -84,7 +84,7 @@ class ChatHeadView : RelativeLayout {
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        findViewById<ImageView>(R.id.ivHead)
+        findViewById<ImageView>(Head.args!!.headImageViewId)
                 .setImageResource(Head.args!!.headDrawableRes)
     }
 
