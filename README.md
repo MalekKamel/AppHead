@@ -1,58 +1,19 @@
-Android-ChatHead
+AppHead
 ===========
+FB Messenger-like App Head for Android
 
-ChatHead for Android app, like FB messenger.
+### License
 
-<br/><br/>
-
-How to Use
------------
-Start ChatHead :
-```Java
-startService(new Intent(Main.this, ChatHeadService.class));
 ```
-<br/>
-Show Message(see below pic 'Messager') :
-```Java
-Intent it = new Intent(Main.this, ChatHeadService.class);
-it.putExtra(Utility.EXTRA_MSG, str);
-startService(it);
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
-<br/>
-Stop ChatHead(see below pic 'LongPressing to Stop') :<br/>
-long click and move chathead to the round on bottom
-
-
-ScreenShot
------------
-**Dragging and Bounce animation**<br/>
-![](app/src/main/assets/drag.png)
-
-<br/><br/>
-**Messenger**<br/>
-![](app/src/main/assets/messenger1.png)
-<br/>
-![](app/src/main/assets/messenger2.png)
-
-<br/><br/>
-**LongPressing to Stop**<br/>
-![](app/src/main/assets/pic_delete.png)
-
-<br/><br/>
-**landscape screenOrientation**<br/>
-![](app/src/main/assets/landscape.png)
-
-Update
------------
-**Support landscape screenOrientation** (2015-4-23)<br/>
-when screenOrientation change to portrait or landscape, ChatHead will reposition automatically.
-<br/>
-**IDE convert** (2015-7-28)<br/>
-from Eclipse to Android Studio.
-<br/>
-**Problem Solved** (2015-8-11)<br/>
-crash when close app from task manager
-<br/>
-**Runtime Permission** (2016-1-19)<br/>
-support Android 6.0 runtime permissions
-
