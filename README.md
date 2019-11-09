@@ -88,7 +88,7 @@ To customize `HeadView` and/or `DimissView` you must define the rootview as `Hea
         android:layout_margin="4dp"
         />
 
-</com.sha.apphead.HeadView>
+</com.sha.apphead.DismissView>
 ```
 
 ### Options & Default Values
