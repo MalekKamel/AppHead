@@ -3,6 +3,10 @@ package com.sha.apphead
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
 
+/**
+ * build, show and hide the App Head.
+ * @param builder the object that holds all info necessary for building the head
+ */
 class AppHead(builder: Head.Builder) {
 
     init {
@@ -12,7 +16,6 @@ class AppHead(builder: Head.Builder) {
     /**
      * Show the app head if the drawing over other apps is granted.
      * If not granted request for the permission then show after granting
-     * @param builder contains options of the app head
      * @param activity a [FragmentActivity]
      */
     fun show(activity: FragmentActivity) {
@@ -25,7 +28,6 @@ class AppHead(builder: Head.Builder) {
      * drawing over other apps permission.
      * It's useful when you want to show the app head from within a service
      * or any component without an Activity
-     * @param builder contains options of the app head
      * @param context any [Context]
      */
     fun showWithoutPermissionRequest(context: Context) {
@@ -34,6 +36,10 @@ class AppHead(builder: Head.Builder) {
     }
 
     companion object {
+        /**
+         * Hide the head.
+         * @param context any context.
+         */
         @JvmStatic
         fun hide(context: Context) {
             ServiceHelper.stop(ChatHeadService::class.java, context)

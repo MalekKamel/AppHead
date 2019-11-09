@@ -3,12 +3,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion Config.compileSdk
 
     defaultConfig {
         applicationId "com.sha.apphead.sample"
-        minSdkVersion 15
-        targetSdkVersion 29
+        minSdkVersion Config.minSdk
+        targetSdkVersion Config.targetSdk
+        versionCode Config.versionCode
+        versionName Config.versionName
         vectorDrawables.useSupportLibrary = true
     }
 
