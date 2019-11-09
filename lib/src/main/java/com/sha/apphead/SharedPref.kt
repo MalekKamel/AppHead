@@ -15,7 +15,9 @@ class SharedPref(private val context: Context) {
 
     @SuppressLint("CommitPrefEdits")
     private fun setup() {
-        pref = context.getSharedPreferences("com.sha.apphead.preferences",Context. MODE_PRIVATE)
+        pref = context.getSharedPreferences(
+                "${BuildConfig.LIBRARY_PACKAGE_NAME}.preferences",
+                Context. MODE_PRIVATE)
         editor = pref.edit()
 
     }

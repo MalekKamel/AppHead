@@ -7,6 +7,7 @@ import android.graphics.Point
 import android.os.CountDownTimer
 import android.os.Handler
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -224,13 +225,6 @@ class HeadView : FrameLayout {
     private fun resetPosition(xCord: Int) {
         if (xCord <= szWindow.x / 2) moveToStart(xCord)
         else moveToEnd(xCord)
-        saveLastCoordinates()
-    }
-
-    private fun saveLastCoordinates() {
-        val location = IntArray(2)
-        getLocationOnScreen(location)
-        SharedPref(context).lastScreenLocation = Point(location[0], location[1])
     }
 
     private fun moveToStart(xCord: Int) {
@@ -251,8 +245,13 @@ class HeadView : FrameLayout {
             override fun onFinish() {
                 params.x = 0
                 WindowManagerHelper.updateViewLayout(this@HeadView, params)
+                saveLastScreenLocation()
             }
         }.start()
+    }
+
+    private fun saveLastScreenLocation() {
+        SharedPref(context).lastScreenLocation = Point(params.x, params.y)
     }
 
     private fun moveToEnd(xCord: Int) {
@@ -272,6 +271,7 @@ class HeadView : FrameLayout {
             override fun onFinish() {
                 params.x = szWindow.x - width
                 WindowManagerHelper.updateViewLayout(this@HeadView, params)
+                saveLastScreenLocation()
             }
         }.start()
     }
