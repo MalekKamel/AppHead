@@ -2,7 +2,7 @@ AppHead
 ===========
 Facebook Messenger-like App Head for Android
 
-<img src="https://github.com/ShabanKamell/AppHead/blob/master/blob/raw/demo.gif" height="200">
+<img src="https://github.com/ShabanKamell/AppHead/blob/master/blob/raw/demo.gif" height="300">
 
 ### License
 
