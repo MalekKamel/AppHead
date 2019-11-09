@@ -33,7 +33,6 @@ class BadgeView: RelativeLayout {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-
     fun show() {
         visibility = View.VISIBLE
     }
@@ -42,28 +41,9 @@ class BadgeView: RelativeLayout {
         visibility = View.GONE
     }
 
-    companion object {
-        fun setup(parent: FrameLayout) {
-            Head.badgeViewArgs?.apply {
-                val view: View = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
-
-                require(view is BadgeView) { "The root view of badge view must be BadgeView!" }
-
-                val params = FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT
-                ).apply { gravity = position.gravity }
-
-                view.count = count
-                parent.addView(view, params)
-                Head.badgeView = view
-            }
-        }
-    }
-
     override fun onFinishInflate() {
         super.onFinishInflate()
-        tvCount = findViewById(R.id.tvCount)
+        tvCount = findViewById(Head.badgeViewArgs!!.countTextViewId)
     }
 
     data class Args(
@@ -108,5 +88,23 @@ class BadgeView: RelativeLayout {
 
     }
 
+    companion object {
+        fun setup(parent: FrameLayout) {
+            Head.badgeViewArgs?.apply {
+                val view: View = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
+
+                require(view is BadgeView) { "The root view of badge view must be BadgeView!" }
+
+                val params = FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT
+                ).apply { gravity = position.gravity }
+
+                view.count = count
+                parent.addView(view, params)
+                Head.badgeView = view
+            }
+        }
+    }
 
 }

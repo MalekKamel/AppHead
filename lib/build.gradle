@@ -33,6 +33,7 @@ dependencies {
 
     implementation Deps.androidx_appCompat
     implementation Deps.androidx_coreKtx
+    implementation Deps.androidx_preference
 
     testImplementation TestDeps.test_junit
     testImplementation TestDeps.test_jUnitParams

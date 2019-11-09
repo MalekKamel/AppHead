@@ -117,6 +117,7 @@ class DismissView: RelativeLayout {
         /**
          * alpha value for [DismissView].
          * @param alpha value.
+         * default: 1f
          * @return [Args] to allow chaining.
          */
         fun alpha(alpha: Float): Args {
@@ -163,6 +164,7 @@ class DismissView: RelativeLayout {
          * [DismissView] is scaled when the head when [HeadView] becomes inside
          * [DismissView] bounds.
          * @param ratio value.
+         * default: 1.5.
          * @return [Args] to allow chaining.
          */
         fun scaleRatio(ratio: Double): Args {

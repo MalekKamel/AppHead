@@ -224,6 +224,13 @@ class HeadView : FrameLayout {
     private fun resetPosition(xCord: Int) {
         if (xCord <= szWindow.x / 2) moveToStart(xCord)
         else moveToEnd(xCord)
+        saveLastCoordinates()
+    }
+
+    private fun saveLastCoordinates() {
+        val location = IntArray(2)
+        getLocationOnScreen(location)
+        SharedPref(context).lastScreenLocation = Point(location[0], location[1])
     }
 
     private fun moveToStart(xCord: Int) {
@@ -323,6 +330,7 @@ class HeadView : FrameLayout {
             var drawableRes: Int = 0,
             var alpha: Float = 1f,
             var allowBounce: Boolean = true,
+            var preserveScreenLocation: Boolean = true,
             var layoutRes: Int = R.layout.app_head,
             var imageViewId: Int = R.id.ivHead,
             var setupImage: ((ImageView) -> Unit)? = null,
@@ -336,6 +344,7 @@ class HeadView : FrameLayout {
         /**
          * dismiss [HeadView] on click.
          * @param dismiss boolean.
+         * default: true.
          * @return [Args] to allow chaining.
          */
         fun dismissOnClick(dismiss: Boolean): Args {
@@ -369,6 +378,7 @@ class HeadView : FrameLayout {
         /**
          * alpha value for [HeadView].
          * @param alpha value.
+         * default: 1f.
          * @return [Args] to allow chaining.
          */
         fun alpha(alpha: Float): Args {
@@ -380,10 +390,24 @@ class HeadView : FrameLayout {
          * toggle bounce of [HeadView]. the bounce occurs when [HeadView]
          * is moved to start or end after user moving.
          * @param allow boolean.
+         * default: true.
          * @return [Args] to allow chaining.
          */
         fun allowBounce(allow: Boolean): Args {
             allowBounce = allow
+            return this
+        }
+
+        /**
+         * toggle preserving [HeadView] location on screen.
+         * if true, the [HeadView] will be shown on the last location to which
+         * the user moved.
+         * @param preserve boolean.
+         * default: true.
+         * @return [Args] to allow chaining.
+         */
+        fun preserveScreenLocation(preserve: Boolean): Args {
+            preserveScreenLocation = preserve
             return this
         }
 
@@ -439,8 +463,10 @@ class HeadView : FrameLayout {
 
             val params = WindowManagerHelper.overlayParams()
             params.gravity = Gravity.TOP or Gravity.START
-            params.x = 0
-            params.y = 100
+
+            val lastScreenLocation = SharedPref(context).lastScreenLocation
+            params.x = lastScreenLocation.x
+            params.y = lastScreenLocation.y
 
             WindowManagerHelper.manager(context).addView(view, params)
 
