@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
-import com.apphead.sample.picasso.PicassoHelper
 import com.sha.apphead.AppHead
 import com.sha.apphead.Head
 import com.squareup.picasso.Picasso
@@ -32,7 +31,7 @@ class MainActivity : FragmentActivity() {
 
         findViewById<View>(R.id.btnShowReadHead).setOnClickListener {
             val builder = Head.Builder(R.drawable.ic_messenger_red)
-                    .headLayoutRes(R.layout.app_head_read, R.id.headImageView)
+                    .headLayoutRes(R.layout.app_head_red, R.id.headImageView)
                     .onClick {
                         Intent(this, MessengerActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
