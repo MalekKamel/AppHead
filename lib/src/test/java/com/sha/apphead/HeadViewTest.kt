@@ -5,67 +5,67 @@ import org.junit.Test
 
 class HeadViewTest {
 
-    private lateinit var builder: HeadView.Builder
+    private lateinit var args: HeadView.Args
 
     @Before
     fun setup() {
-        builder = HeadView.Builder()
+        args = HeadView.Args()
     }
 
     @Test
     fun dismissOnClick() {
-        builder.dismissOnClick(true)
-        assert(builder.dismissOnClick)
+        args.dismissOnClick(true)
+        assert(args.dismissOnClick)
     }
 
 
     @Test
     fun layoutRes() {
-        builder.layoutRes(1, 2)
-        assert(builder.layoutRes == 1)
-        assert(builder.imageViewId == 2)
+        args.layoutRes(1, 2)
+        assert(args.layoutRes == 1)
+        assert(args.imageViewId == 2)
     }
 
     @Test
     fun alpha() {
-        builder.alpha(1f)
-        assert(builder.alpha == 1f)
+        args.alpha(1f)
+        assert(args.alpha == 1f)
     }
 
     @Test
     fun allowBounce() {
-        builder.allowBounce(true)
-        assert(builder.allowBounce)
+        args.allowBounce(true)
+        assert(args.allowBounce)
     }
 
     @Test
     fun onFinishInflate() {
-        builder.onFinishInflate {}
-        assert(builder.onFinishInflate != null)
+        args.onFinishInflate {}
+        assert(args.onFinishInflate != null)
     }
 
     @Test
     fun setupImage() {
-        builder.setupImage {}
-        assert(builder.setupImage != null)
+        args.setupImage {}
+        assert(args.setupImage != null)
     }
 
     @Test
     fun onClick() {
-        builder.onClick {}
-        assert(builder.onClick != null)
+        args.onClick {}
+        assert(args.onClick != null)
     }
 
     @Test
     fun onLongClick() {
-        builder.onLongClick {}
-        assert(builder.onLongClick != null)
+        args.onLongClick {}
+        assert(args.onLongClick != null)
     }
 
     @Test
     fun onDismiss() {
-        builder.onDismiss {}
-        assert(builder.onDismiss != null)
+        args.onDismiss {}
+        assert(args.onDismiss != null)
     }
 
 }

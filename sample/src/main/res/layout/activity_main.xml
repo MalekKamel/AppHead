@@ -34,7 +34,19 @@
             android:id="@+id/btnShowReadHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show Head With Loaded Image"
+            android:text="Show Custom Head"
+            android:background="@drawable/bg_round"
+            android:textColor="@color/blue" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/btnUpdateBadge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Badge"
             android:background="@drawable/bg_round"
             android:textColor="@color/blue" />
 

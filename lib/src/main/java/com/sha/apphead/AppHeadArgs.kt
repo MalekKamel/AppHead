@@ -1,8 +1,8 @@
 package com.sha.apphead
 
-import android.widget.ImageView
-
 internal data class AppHeadArgs(
-        var headView: HeadView.Builder,
-        var dismissView: DismissView.Builder
+        var headViewArgs: HeadView.Args,
+        var dismissViewArgs: DismissView.Args,
+        var badgeViewArgs: BadgeView.Args? = null,
+        var badgeView: BadgeView? = null
 )

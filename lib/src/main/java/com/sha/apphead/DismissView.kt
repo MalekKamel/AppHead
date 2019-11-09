@@ -11,7 +11,6 @@ import android.widget.RelativeLayout
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import androidx.core.view.ViewCompat
 import kotlin.math.ceil
 
 
@@ -21,7 +20,7 @@ class DismissView: RelativeLayout {
         get() = 1.5
 
     val scaleRatio
-        get() = Head.dismissView.scaleRatio
+        get() = Head.dismissViewBuilder.scaleRatio
 
     private lateinit var image: ImageView
 
@@ -53,12 +52,18 @@ class DismissView: RelativeLayout {
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        Head.dismissView.run {
+        Head.dismissViewBuilder.run {
             image = findViewById(imageViewId)
             image.setImageResource(drawableRes)
             image.alpha = alpha
             onFinishInflate?.invoke(this@DismissView)
         }
+
+        // catch exceptions thrown here as the library user may think it's
+        // a library exception
+        Head.dismissViewBuilder.runCatching {
+            setupImage?.invoke(image)
+        }.onFailure { print("Exception thrown in DismissView image setup: ${it.stackTrace}") }
     }
 
     private fun setup() {
@@ -77,9 +82,6 @@ class DismissView: RelativeLayout {
         params.y = yCord
 
         WindowManagerHelper.updateViewLayout(this, params)
-        ViewCompat.setTranslationZ(this, 1f)
-        bringToFront()
-        requestLayout()
     }
 
     fun move() {
@@ -102,7 +104,7 @@ class DismissView: RelativeLayout {
         imgWidth = currentWidth
     }
     
-    data class Builder(
+    data class Args(
             var scaleRatio: Double = 1.5,
             var alpha: Float = 0.8f,
             var layoutRes: Int = R.layout.dismiss_view,
@@ -115,9 +117,9 @@ class DismissView: RelativeLayout {
         /**
          * alpha value for [DismissView].
          * @param alpha value.
-         * @return [Builder] to allow chaining.
+         * @return [Args] to allow chaining.
          */
-        fun alpha(alpha: Float): Builder {
+        fun alpha(alpha: Float): Args {
             this.alpha = alpha
             return this
         }
@@ -126,9 +128,9 @@ class DismissView: RelativeLayout {
          * called when [DismissView] is inflated.
          * here you can customize the view.
          * @param listener callback.
-         * @return [Builder] to allow chaining.
+         * @return [Args] to allow chaining.
          */
-        fun onFinishInflate(listener: ((DismissView) -> Unit)?): Builder {
+        fun onFinishInflate(listener: ((DismissView) -> Unit)?): Args {
             onFinishInflate = listener
             return this
         }
@@ -138,9 +140,9 @@ class DismissView: RelativeLayout {
          * Note that the root view of the layout must be [DismissView].
          * @param layoutRes layout resource.
          * @param imageViewId the id of the ImageView.
-         * @return [Builder] to allow chaining.
+         * @return [Args] to allow chaining.
          */
-        fun layoutRes(@LayoutRes layoutRes: Int, @IdRes imageViewId: Int): Builder {
+        fun layoutRes(@LayoutRes layoutRes: Int, @IdRes imageViewId: Int): Args {
             this.layoutRes = layoutRes
             this.imageViewId = imageViewId
             return this
@@ -149,9 +151,9 @@ class DismissView: RelativeLayout {
         /**
          * drawable res for [DismissView].
          * @param res resource id.
-         * @return [Builder] to allow chaining.
+         * @return [Args] to allow chaining.
          */
-        fun drawableRes(@DrawableRes res: Int): Builder {
+        fun drawableRes(@DrawableRes res: Int): Args {
             drawableRes = res
             return this
         }
@@ -161,9 +163,9 @@ class DismissView: RelativeLayout {
          * [DismissView] is scaled when the head when [HeadView] becomes inside
          * [DismissView] bounds.
          * @param ratio value.
-         * @return [Builder] to allow chaining.
+         * @return [Args] to allow chaining.
          */
-        fun scaleRatio(ratio: Double): Builder {
+        fun scaleRatio(ratio: Double): Args {
             scaleRatio = ratio
             return this
         }
@@ -172,9 +174,9 @@ class DismissView: RelativeLayout {
          * called when [HeadView] is inflated to give you the opportunity
          * to load an image from Picasso/Glide or any way.
          * @param listener callback.
-         * @return [Builder] to allow chaining.
+         * @return [Args] to allow chaining.
          */
-        fun setupImage(listener: ((ImageView) -> Unit)?): Builder {
+        fun setupImage(listener: ((ImageView) -> Unit)?): Args {
             setupImage = listener
             return this
         }
@@ -182,7 +184,7 @@ class DismissView: RelativeLayout {
 
     companion object {
         fun setup(context: Context): DismissView {
-            val view: View = LayoutInflaterHelper.inflateView(Head.dismissView.layoutRes, context)
+            val view: View = LayoutInflaterHelper.inflateView(Head.dismissViewBuilder.layoutRes, context)
 
             require(view is DismissView) { "The root view of dismiss view must be DismissView!" }
 

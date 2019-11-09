@@ -23,13 +23,13 @@ dependencies {
 ### Usage
 The most simple usage
 ``` kotlin
-  val builder = Head.Builder(R.drawable.ic_messenger).onClick {..}
-  AppHead(builder).show(activity)
+  val args = Head.Builder(R.drawable.ic_messenger).onClick {..}
+  AppHead(args).show(activity)
 ```
 All available options
 
 ``` kotlin
-val builder = Head.Builder(R.drawable.ic_messenger_red)
+val args = Head.Builder(R.drawable.ic_messenger_red)
         .headLayoutRes(R.layout.head_view, R.id.headImageView)
         .dismissLayoutRes(R.layout.dismiss_view, R.id.dimissImageView)
         .onClick {..}
@@ -44,7 +44,7 @@ val builder = Head.Builder(R.drawable.ic_messenger_red)
         .onFinishHeadViewInflate {..}
         .onFinishDismissViewInflate {..}
         .onDismiss {..}
-AppHead(builder).show(activity)
+AppHead(args).show(activity)
 ```
 ### Components
 AppHead has 2 main components
