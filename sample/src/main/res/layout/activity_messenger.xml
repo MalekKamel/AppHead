@@ -27,7 +27,6 @@
         >
 
         <EditText
-            android:id="@+id/dialog_edt"
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:gravity="top|start"
@@ -38,7 +37,6 @@
             />
 
         <ImageButton
-            android:id="@+id/dialog_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="end"

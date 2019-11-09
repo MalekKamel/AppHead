@@ -25,7 +25,7 @@ class HeadView : RelativeLayout {
 
     private lateinit var windowManager: WindowManager
 
-    lateinit var listener: HeadViewListener
+    internal lateinit var listener: HeadViewListener
 
     private lateinit var dismissView: DismissView
     private lateinit var image: ImageView

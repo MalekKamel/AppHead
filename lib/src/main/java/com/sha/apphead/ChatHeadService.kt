@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.IBinder
 import android.view.WindowManager
 
-class ChatHeadService : Service() {
+internal class ChatHeadService : Service() {
     private lateinit var headView: HeadView
 
     private lateinit var windowManager: WindowManager

@@ -22,10 +22,8 @@
             android:id="@+id/btnShowHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/bg_round"
             android:text="Show Head"
+            android:background="@drawable/bg_round"
             android:textColor="@color/blue" />
 
         <Space
@@ -36,10 +34,8 @@
             android:id="@+id/btnShowReadHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
+            android:text="Show Head With Loaded Image"
             android:background="@drawable/bg_round"
-            android:text="Show Head (custom head layout)"
             android:textColor="@color/blue" />
 
     </LinearLayout>

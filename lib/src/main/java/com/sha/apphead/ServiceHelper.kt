@@ -4,7 +4,7 @@ package com.sha.apphead
 import android.content.Context
 import android.content.Intent
 
-object ServiceHelper {
+internal object ServiceHelper {
 
     fun start(clazz: Class<*>, context: Context) {
         try {

@@ -5,7 +5,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.fragment.app.FragmentActivity
 
-object SystemOverlayHelper {
+internal object SystemOverlayHelper {
 
     fun canDrawOverlays(context: Context): Boolean {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context)

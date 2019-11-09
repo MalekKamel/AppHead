@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 
-object WindowManagerHelper {
+internal object WindowManagerHelper {
 
     fun manager(context: Context): WindowManager {
         return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
