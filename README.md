@@ -54,7 +54,7 @@ AppHead has 2 main components
 ### Customize Components Layouts
 In addition to setting all options to the components, you also can define full custom components layouts.
 To customize `HeadView` and/or `DimissView` you must define the rootview as `HeadView` or `DimissView`
-``` kotlin
+``` xml
 <com.sha.apphead.HeadView 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
@@ -73,7 +73,7 @@ To customize `HeadView` and/or `DimissView` you must define the rootview as `Hea
 
 ```
 
-``` kotlin
+``` xml
 <com.sha.apphead.DismissView 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
