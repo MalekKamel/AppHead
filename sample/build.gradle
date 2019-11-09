@@ -28,4 +28,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
     implementation "com.google.android.material:material:1.2.0-alpha01"
+    implementation "com.squareup.picasso:picasso:2.71828"
 }

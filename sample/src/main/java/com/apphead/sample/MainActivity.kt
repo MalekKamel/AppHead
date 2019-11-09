@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
+import com.apphead.sample.picasso.PicassoHelper
 import com.sha.apphead.AppHead
 import com.sha.apphead.Head
+import com.squareup.picasso.Picasso
 
 class MainActivity : FragmentActivity() {
 
@@ -38,11 +40,20 @@ class MainActivity : FragmentActivity() {
                         }
                     }
                     .onLongClick { log("onLongClick") }
+                    .loadHeadImage {
+                        it.layoutParams.height = 190
+                        it.layoutParams.width = 190
+                        Picasso.get()
+                                .load("https://www.icon.digital/wp-content/uploads/facebook_messenger1600-570x570.png")
+                                .placeholder(R.drawable.ic_messenger_red)
+                                .into(it)
+                    }
                     .dismissViewScaleRatio(1.0)
                     .dismissDrawableRes(R.drawable.ic_dismiss)
                     .dismissOnClick(false)
                     .headViewAlpha(0.8f)
                     .dismissViewAlpha(0.5f)
+                    .allowHeadBounce(false)
                     .onFinishHeadViewInflate { log("onFinishHeadViewInflate")  }
                     .onFinishDismissViewInflate {  log("onFinishDismissViewInflate") }
                     .onDismiss { log("onDismiss") }
@@ -51,6 +62,6 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun log(message: String) {
-        Log.e(javaClass.simpleName, message)
+        Log.i(javaClass.simpleName, message)
     }
 }

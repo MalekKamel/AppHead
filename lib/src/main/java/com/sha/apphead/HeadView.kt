@@ -16,6 +16,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import java.lang.Exception
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.cos
@@ -87,7 +88,11 @@ class HeadView : RelativeLayout {
             image = findViewById<ImageView>(headImageViewId).apply {
                 setImageResource(headDrawableRes)
             }
-            loadHeadImage?.invoke(image)
+            try {
+                loadHeadImage?.invoke(image)
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
             image.alpha = headViewAlpha
             onFinishHeadViewInflate?.invoke(this@HeadView)
         }
@@ -224,35 +229,44 @@ class HeadView : RelativeLayout {
     }
 
     private fun moveToStart(xCord: Int) {
+        if(!Head.args!!.allowHeadBounce) {
+            params.x = 0
+            WindowManagerHelper.updateViewLayout(this@HeadView, params)
+            return
+        }
         val x = szWindow.x - xCord
 
         object : CountDownTimer(500, 5) {
-            var mParams = layoutParams as WindowManager.LayoutParams
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
-                mParams.x = 0 - bounceValue(step, x.toLong()).toInt()
-                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
+                params.x = 0 - bounceValue(step, x.toLong()).toInt()
+                WindowManagerHelper.updateViewLayout(this@HeadView, params)
             }
 
             override fun onFinish() {
-                mParams.x = 0
-                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
+                params.x = 0
+                WindowManagerHelper.updateViewLayout(this@HeadView, params)
             }
         }.start()
     }
 
     private fun moveToEnd(xCord: Int) {
+        if(!Head.args!!.allowHeadBounce) {
+            params.x = szWindow.x - width
+            WindowManagerHelper.updateViewLayout(this@HeadView, params)
+            return
+        }
+
         object : CountDownTimer(500, 5) {
-            var mParams = layoutParams as WindowManager.LayoutParams
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
-                mParams.x = szWindow.x + bounceValue(step, xCord.toLong()).toInt() - width
-                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
+                params.x = szWindow.x + bounceValue(step, xCord.toLong()).toInt() - width
+                WindowManagerHelper.updateViewLayout(this@HeadView, params)
             }
 
             override fun onFinish() {
-                mParams.x = szWindow.x - width
-                WindowManagerHelper.updateViewLayout(this@HeadView, mParams)
+                params.x = szWindow.x - width
+                WindowManagerHelper.updateViewLayout(this@HeadView, params)
             }
         }.start()
     }
@@ -286,24 +300,23 @@ class HeadView : RelativeLayout {
 
         windowManager.defaultDisplay.getSize(szWindow)
 
-        val layoutParams = layoutParams as WindowManager.LayoutParams
 
         when(newConfig.orientation) {
             Configuration.ORIENTATION_LANDSCAPE -> {
 
-                if (layoutParams.y + (height + statusBarHeight) > szWindow.y) {
-                    layoutParams.y = szWindow.y - (height + statusBarHeight)
+                if (params.y + (height + statusBarHeight) > szWindow.y) {
+                    params.y = szWindow.y - (height + statusBarHeight)
                     WindowManagerHelper.updateViewLayout(this, layoutParams)
                 }
 
-                if (layoutParams.x != 0 && layoutParams.x < szWindow.x) {
+                if (params.x != 0 && params.x < szWindow.x) {
                     resetPosition(szWindow.x)
                 }
             }
 
             Configuration.ORIENTATION_PORTRAIT -> {
 
-                if (layoutParams.x > szWindow.x) {
+                if (params.x > szWindow.x) {
                     resetPosition(szWindow.x)
                 }
             }

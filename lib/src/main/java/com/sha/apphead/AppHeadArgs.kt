@@ -6,6 +6,7 @@ internal data class AppHeadArgs(
         var headDrawableRes: Int = 0,
         var dismissViewScaleRatio: Double = 1.5,
         var headViewAlpha: Float = 1f,
+        var allowHeadBounce: Boolean = true,
         var dismissViewAlpha: Float = 0.8f,
         var headLayoutRes: Int = R.layout.app_head,
         var headImageViewId: Int = R.id.ivHead,

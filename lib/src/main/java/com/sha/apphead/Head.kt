@@ -40,6 +40,11 @@ object Head {
             return this
         }
 
+        fun allowHeadBounce(allow: Boolean): Builder {
+            args!!.allowHeadBounce = allow
+            return this
+        }
+
         fun dismissViewAlpha(alpha: Float): Builder {
             args!!.dismissViewAlpha = alpha
             return this
