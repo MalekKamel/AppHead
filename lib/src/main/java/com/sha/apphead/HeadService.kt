@@ -27,17 +27,17 @@ internal class HeadService : Service() {
         headView.listener = object: HeadViewListener {
 
             override fun onDismiss(view: HeadView) {
-                Head.headViewBuilder.onDismiss?.invoke(view)
+                Head.headViewArgs.onDismiss?.invoke(view)
                 stopSelf()
             }
 
             override fun onClick(view: HeadView) {
-                Head.headViewBuilder.onClick?.invoke(view)
-                if (Head.headViewBuilder.dismissOnClick) stopSelf()
+                Head.headViewArgs.onClick?.invoke(view)
+                if (Head.headViewArgs.dismissOnClick) stopSelf()
             }
 
             override fun onLongClick(view: HeadView) {
-                Head.headViewBuilder.onLongClick?.invoke(view)
+                Head.headViewArgs.onLongClick?.invoke(view)
             }
         }
     }

@@ -8,10 +8,10 @@ import androidx.annotation.DrawableRes
 object Head {
     internal var args: AppHeadArgs? = null
 
-    internal val headViewBuilder
+    internal val headViewArgs
         get() = args!!.headViewArgs
 
-    internal val dismissViewBuilder
+    internal val dismissViewArgs
         get() = args!!.dismissViewArgs
 
     internal val badgeViewArgs: BadgeView.Args?

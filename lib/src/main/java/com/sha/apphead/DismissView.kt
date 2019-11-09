@@ -20,7 +20,7 @@ class DismissView: RelativeLayout {
         get() = 1.5
 
     val scaleRatio
-        get() = Head.dismissViewBuilder.scaleRatio
+        get() = Head.dismissViewArgs.scaleRatio
 
     private lateinit var image: ImageView
 
@@ -52,7 +52,7 @@ class DismissView: RelativeLayout {
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        Head.dismissViewBuilder.run {
+        Head.dismissViewArgs.run {
             image = findViewById(imageViewId)
             image.setImageResource(drawableRes)
             image.alpha = alpha
@@ -61,7 +61,7 @@ class DismissView: RelativeLayout {
 
         // catch exceptions thrown here as the library user may think it's
         // a library exception
-        Head.dismissViewBuilder.runCatching {
+        Head.dismissViewArgs.runCatching {
             setupImage?.invoke(image)
         }.onFailure { print("Exception thrown in DismissView image setup: ${it.stackTrace}") }
     }
@@ -186,7 +186,7 @@ class DismissView: RelativeLayout {
 
     companion object {
         fun setup(context: Context): DismissView {
-            val view: View = LayoutInflaterHelper.inflateView(Head.dismissViewBuilder.layoutRes, context)
+            val view: View = LayoutInflaterHelper.inflateView(Head.dismissViewArgs.layoutRes, context)
 
             require(view is DismissView) { "The root view of dismiss view must be DismissView!" }
 

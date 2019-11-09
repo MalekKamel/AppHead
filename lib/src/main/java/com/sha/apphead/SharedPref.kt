@@ -3,7 +3,6 @@ package com.sha.apphead
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Point
 
 class SharedPref(private val context: Context) {
     private lateinit var editor: SharedPreferences.Editor
@@ -24,6 +23,7 @@ class SharedPref(private val context: Context) {
     private enum class Key{
         LAST_SCREEN_LOCATION_X,
         LAST_SCREEN_LOCATION_Y,
+        LAST_SCREEN_LOCATION_ORIENTATION
     }
 
     private fun putString(value: String?, key: Key){
@@ -44,15 +44,19 @@ class SharedPref(private val context: Context) {
         return pref.getInt(key.name, def)
     }
 
-    var lastScreenLocation: Point
+    var lastScreenLocation: ScreenLocation
         get() {
             val x = getInt(Key.LAST_SCREEN_LOCATION_X, 0)
             val y = getInt(Key.LAST_SCREEN_LOCATION_Y, 100)
-            return Point(x, y)
+            val orientation = getInt(
+                    Key.LAST_SCREEN_LOCATION_ORIENTATION,
+                    context.resources.configuration.orientation)
+            return ScreenLocation(x, y, orientation)
         }
         set(value) {
             putInt(value.x, Key.LAST_SCREEN_LOCATION_X)
             putInt(value.y, Key.LAST_SCREEN_LOCATION_Y)
+            putInt(value.y, Key.LAST_SCREEN_LOCATION_ORIENTATION)
         }
 
 }

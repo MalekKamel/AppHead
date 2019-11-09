@@ -15,7 +15,7 @@ class HeadTest {
 
     @Test
     fun headDrawableRes() {
-        assert(Head.headViewBuilder.drawableRes == -1)
+        assert(Head.headViewArgs.drawableRes == -1)
     }
 
 }

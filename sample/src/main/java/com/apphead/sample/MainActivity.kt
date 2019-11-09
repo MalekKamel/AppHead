@@ -57,6 +57,7 @@ class MainActivity : FragmentActivity() {
                 .setupImage { loadImage(it) }
                 .onDismiss { log("onDismiss") }
                 .dismissOnClick(false)
+                .preserveScreenLocation(false)
 
         // build DismissView
         val dismissViewArgs = DismissView.Args()

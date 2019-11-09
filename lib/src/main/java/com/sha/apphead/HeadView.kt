@@ -7,7 +7,6 @@ import android.graphics.Point
 import android.os.CountDownTimer
 import android.os.Handler
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -82,7 +81,7 @@ class HeadView : FrameLayout {
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        Head.headViewBuilder.run {
+        Head.headViewArgs.run {
             image = findViewById<ImageView>(imageViewId).apply {
                 setImageResource(drawableRes)
             }
@@ -92,7 +91,7 @@ class HeadView : FrameLayout {
 
         // catch exceptions thrown here as the library user may think it's
         // a library exception
-        Head.headViewBuilder.runCatching {
+        Head.headViewArgs.runCatching {
             setupImage?.invoke(image)
         }.onFailure { print("Exception thrown in HeAdView image setup: ${it.stackTrace}") }
     }
@@ -228,7 +227,7 @@ class HeadView : FrameLayout {
     }
 
     private fun moveToStart(xCord: Int) {
-        if(!Head.headViewBuilder.allowBounce) {
+        if(!Head.headViewArgs.allowBounce) {
             params.x = 0
             WindowManagerHelper.updateViewLayout(this@HeadView, params)
             return
@@ -251,11 +250,15 @@ class HeadView : FrameLayout {
     }
 
     private fun saveLastScreenLocation() {
-        SharedPref(context).lastScreenLocation = Point(params.x, params.y)
+        if(!Head.headViewArgs.preserveScreenLocation) return
+        SharedPref(context).lastScreenLocation = ScreenLocation(
+                params.x,
+                params.y,
+                context.resources.configuration.orientation)
     }
 
     private fun moveToEnd(xCord: Int) {
-        if(!Head.headViewBuilder.allowBounce) {
+        if(!Head.headViewArgs.allowBounce) {
             params.x = szWindow.x - width
             WindowManagerHelper.updateViewLayout(this@HeadView, params)
             return
@@ -327,18 +330,18 @@ class HeadView : FrameLayout {
 
 
     data class Args(
-            var drawableRes: Int = 0,
-            var alpha: Float = 1f,
-            var allowBounce: Boolean = true,
-            var preserveScreenLocation: Boolean = true,
-            var layoutRes: Int = R.layout.app_head,
-            var imageViewId: Int = R.id.ivHead,
-            var setupImage: ((ImageView) -> Unit)? = null,
-            var onFinishInflate: ((HeadView) -> Unit)? = null,
-            var onClick: ((HeadView) -> Unit)? = null,
-            var onLongClick: ((HeadView) -> Unit)? = null,
-            var dismissOnClick: Boolean = true,
-            var onDismiss: ((HeadView) -> Unit)? = null
+            internal var drawableRes: Int = 0,
+            internal var alpha: Float = 1f,
+            internal var allowBounce: Boolean = true,
+            internal var preserveScreenLocation: Boolean = true,
+            internal var layoutRes: Int = R.layout.app_head,
+            internal var imageViewId: Int = R.id.ivHead,
+            internal var setupImage: ((ImageView) -> Unit)? = null,
+            internal var onFinishInflate: ((HeadView) -> Unit)? = null,
+            internal var onClick: ((HeadView) -> Unit)? = null,
+            internal var onLongClick: ((HeadView) -> Unit)? = null,
+            internal var dismissOnClick: Boolean = true,
+            internal var onDismiss: ((HeadView) -> Unit)? = null
     ) {
 
         /**
@@ -457,16 +460,14 @@ class HeadView : FrameLayout {
     companion object {
         fun setup(context: Context): HeadView {
 
-            val view: View = LayoutInflaterHelper.inflateView(Head.headViewBuilder.layoutRes, context)
+            val view: View = LayoutInflaterHelper.inflateView(Head.headViewArgs.layoutRes, context)
 
             require(view is HeadView) { "The root view of head view must be HeadView!" }
 
             val params = WindowManagerHelper.overlayParams()
             params.gravity = Gravity.TOP or Gravity.START
 
-            val lastScreenLocation = SharedPref(context).lastScreenLocation
-            params.x = lastScreenLocation.x
-            params.y = lastScreenLocation.y
+            showInLastLocation(context, params)
 
             WindowManagerHelper.manager(context).addView(view, params)
 
@@ -476,6 +477,20 @@ class HeadView : FrameLayout {
             Head.badgeViewArgs?.run { BadgeView.setup(view) }
 
             return view
+        }
+
+        private fun showInLastLocation(context: Context, params: WindowManager.LayoutParams) {
+            var lastScreenLocation = SharedPref(context).lastScreenLocation
+            if (lastScreenLocation.isOrientationChanged(context)) {
+                lastScreenLocation = ScreenLocation(
+                        0,
+                        100,
+                        context.resources.configuration.orientation)
+                SharedPref(context).lastScreenLocation = lastScreenLocation
+            }
+
+            params.x = lastScreenLocation.x
+            params.y = lastScreenLocation.y
         }
     }
 
