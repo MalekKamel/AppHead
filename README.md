@@ -113,6 +113,8 @@ To customize `HeadView` and/or `DimissView` you must define the rootview as `Hea
 
 #### Look at 'sample' module for the full code. For more advanced example.
 
+## Credit
+[henrychuangtw/Android-ChatHead](https://github.com/henrychuangtw/Android-ChatHead)
 ### License
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
