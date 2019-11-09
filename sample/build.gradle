@@ -22,11 +22,11 @@ android {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(':lib')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
-    implementation "com.google.android.material:material:1.2.0-alpha01"
-    implementation "com.squareup.picasso:picasso:2.71828"
+    implementation Deps.androidx_appCompat
+    implementation Deps.androidx_coreKtx
+    implementation Deps.androidx_constraintLayout
+    implementation Deps.materialDesign
+    implementation Deps.picasso
 }

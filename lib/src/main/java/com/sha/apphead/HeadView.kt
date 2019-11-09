@@ -1,11 +1,9 @@
 package com.sha.apphead
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Point
-import android.os.Build
 import android.os.CountDownTimer
 import android.os.Handler
 import android.util.AttributeSet
@@ -16,7 +14,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import java.lang.Exception
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.cos
@@ -294,7 +291,6 @@ class HeadView : RelativeLayout {
         listener.onLongClick(this)
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
