@@ -7,7 +7,6 @@ import android.graphics.Point
 import android.os.CountDownTimer
 import android.os.Handler
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -50,8 +49,6 @@ class HeadView : FrameLayout {
     private var handlerLongClick = Handler()
 
     private var runnableLongClick: Runnable = Runnable {
-        Log.d(javaClass.simpleName, "Into runnableLongClick")
-
         isLongClick = true
         dismissView.visibility = View.VISIBLE
         onLongClick()
@@ -120,7 +117,7 @@ class HeadView : FrameLayout {
                 onUp(xCord, yCord)
             }
 
-            else -> Log.d(javaClass.simpleName, "ChatHeadView.setOnTouchListener  -> event.getAction() : default")
+            else -> {}
         }
         return true
     }
@@ -281,8 +278,6 @@ class HeadView : FrameLayout {
     }
 
     private fun onLongClick() {
-        Log.d(javaClass.simpleName, "Into ChatHeadView.onLongClick() ")
-
         val paramDismiss = dismissView.layoutParams as WindowManager.LayoutParams
         val xCordDismiss = (szWindow.x - dismissView.width) / 2
         val yCordDismiss = szWindow.y - (dismissView.height + statusBarHeight)
