@@ -97,7 +97,7 @@ To customize `HeadView` and/or `DimissView` you must define the rootview as `Hea
 | ------------------------------ | --------------------------- | ----------------------------- |
 | **headLayoutRes**              |    Layout Res               | R.layout.app_head             |
 | **dismissLayoutRes**           |    Layout Res               | R.layout.dismiss_view         |
-| **headDrawableRes**            |    Drawable Res             | R.layout.app_head             |
+| **headDrawableRes**            |    Drawable Res             | 0                             |
 | **dismissDrawableRes**         |    Drawable Res             | R.drawable.ic_dismiss_apphead |
 | **dismissViewScaleRatio**      |    Double                   | 1.5                           |                         
 | **headViewAlpha**              |    Float                    | 1f                            |
