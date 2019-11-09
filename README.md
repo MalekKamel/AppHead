@@ -1,6 +1,6 @@
 AppHead
 ===========
-Head View like Facebook Messenger for Android
+Head View like Facebook Messenger for Android.
 
 <img src="https://github.com/ShabanKamell/AppHead/blob/master/blob/raw/demo.gif" height="400">
 
