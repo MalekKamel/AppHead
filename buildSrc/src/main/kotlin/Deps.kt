@@ -15,10 +15,10 @@ object Versions {
 }
 
 object Deps {
-    const val androidx_appCompat   = "androidx.appcompat:appcompat:${Versions.androidx_appCompat}"
+    const val androidx_appCompat = "androidx.appcompat:appcompat:${Versions.androidx_appCompat}"
     const val androidx_coreKtx = "androidx.core:core-ktx:${Versions.androidx_coreKtx}"
     const val androidx_constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.androidx_constraintLayout}"
-    const val materialDesign  = "com.google.android.material:material:${Versions.materialDesign}"
+    const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
     const val picasso  = "com.squareup.picasso:picasso:${Versions.picasso}"
 }
 
@@ -29,5 +29,4 @@ object TestDeps {
     const val test_jUnitParams = "pl.pragmatists:JUnitParams:${Versions.test_jUnitParams}"
     const val test_kotlinTestJunit5 = "io.kotlintest:kotlintest-runner-junit5:${Versions.test_kotlinTestJunit5}"
     const val test_kotlinTestExtKoin = "io.kotlintest:kotlintest-extensions-koin:${Versions.test_kotlinTestExtKoin}"
-
 }

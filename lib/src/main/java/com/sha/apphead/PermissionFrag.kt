@@ -1,5 +1,6 @@
 package com.sha.apphead
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,14 +12,14 @@ import androidx.fragment.app.FragmentManager
 
 internal class PermissionFrag : Fragment() {
 
-    private val REQUEST_CODE = 222
+    private val requestCode = 222
 
     private lateinit var readyCallback: (PermissionFrag) -> Unit
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            REQUEST_CODE -> {
+            this.requestCode -> {
                 activity?.apply {
                     if (!SystemOverlayHelper.canDrawOverlays(this)) return
                     ServiceHelper.start(ChatHeadService::class.java, this)
@@ -32,12 +33,13 @@ internal class PermissionFrag : Fragment() {
             requestPermission()
     }
 
+    @SuppressLint("InlinedApi")
     private fun requestPermission() {
         val intent = Intent(
                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:" + activity!!.packageName)
         )
-        startActivityForResult(intent, REQUEST_CODE)
+        startActivityForResult(intent, requestCode)
     }
 
     companion object {
