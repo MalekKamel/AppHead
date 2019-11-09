@@ -49,7 +49,7 @@ AppHead(builder).show(activity)
 ### Components
 AppHead has 2 main components
 - [ ] **HeadView**: the draggable & dismissable view.
-- [ ] **DimissView** the view at the bottom that acts as bounds within which the **HeadView** can be dimissed.
+- [ ] **DimissView**: the view at the bottom that acts as bounds within which the **HeadView** can be dimissed.
 
 ### Customize Components Layouts
 In addition to setting all options to the components, you also can define full custom components layouts.
