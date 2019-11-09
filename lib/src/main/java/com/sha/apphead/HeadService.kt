@@ -33,7 +33,7 @@ internal class HeadService : Service() {
 
             override fun onClick(view: HeadView) {
                 Head.headView.onClick?.invoke(view)
-                if (Head.dismissView.dismissOnClick) stopSelf()
+                if (Head.headView.dismissOnClick) stopSelf()
             }
 
             override fun onLongClick(view: HeadView) {

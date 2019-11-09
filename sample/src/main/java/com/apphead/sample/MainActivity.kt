@@ -32,6 +32,8 @@ class MainActivity : FragmentActivity() {
         }
 
         findViewById<View>(R.id.btnShowReadHead).setOnClickListener {
+
+            // build HeadView
             val headViewBuilder = HeadView.Builder()
                     .layoutRes(R.layout.app_head_red, R.id.headImageView)
                     .onClick {
@@ -53,12 +55,13 @@ class MainActivity : FragmentActivity() {
                                 .into(it)
                     }
                     .onDismiss { log("onDismiss") }
+                    .dismissOnClick(false)
 
+            // build DismissView
             val dismissViewBuilder = DismissView.Builder()
                     .alpha(0.5f)
                     .scaleRatio(1.0)
                     .drawableRes(R.drawable.ic_dismiss)
-                    .dismissOnClick(false)
                     .onFinishInflate {  log("onFinishDismissViewInflate") }
                     .setupImage { }
 

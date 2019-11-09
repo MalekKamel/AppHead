@@ -1,10 +1,6 @@
 package com.sha.apphead
 
-import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import androidx.annotation.LayoutRes
-import com.sha.apphead.DismissView.Builder
 
 /**
  * builds the app head.
@@ -51,7 +47,7 @@ object Head {
          * @return [Head] containing info.
          */
         internal fun build(): Head {
-            headViewBuilder.headDrawableRes = headDrawableRes
+            headViewBuilder.drawableRes = headDrawableRes
             args = AppHeadArgs(headViewBuilder, dismissViewBuilder)
             return Head
         }

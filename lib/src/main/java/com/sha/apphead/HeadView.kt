@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import com.sha.apphead.DismissView.Builder
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.cos
@@ -84,16 +85,16 @@ class HeadView : RelativeLayout {
     override fun onFinishInflate() {
         super.onFinishInflate()
         Head.headView.run {
-            image = findViewById<ImageView>(headImageViewId).apply {
-                setImageResource(headDrawableRes)
+            image = findViewById<ImageView>(imageViewId).apply {
+                setImageResource(drawableRes)
             }
             try {
                 setupImage?.invoke(image)
             }catch (e: Exception) {
                 e.printStackTrace()
             }
-            image.alpha = headViewAlpha
-            onFinishHeadViewInflate?.invoke(this@HeadView)
+            image.alpha = alpha
+            onFinishInflate?.invoke(this@HeadView)
         }
     }
 
@@ -228,7 +229,7 @@ class HeadView : RelativeLayout {
     }
 
     private fun moveToStart(xCord: Int) {
-        if(!Head.headView.allowHeadBounce) {
+        if(!Head.headView.allowBounce) {
             params.x = 0
             WindowManagerHelper.updateViewLayout(this@HeadView, params)
             return
@@ -250,7 +251,7 @@ class HeadView : RelativeLayout {
     }
 
     private fun moveToEnd(xCord: Int) {
-        if(!Head.headView.allowHeadBounce) {
+        if(!Head.headView.allowBounce) {
             params.x = szWindow.x - width
             WindowManagerHelper.updateViewLayout(this@HeadView, params)
             return
@@ -322,17 +323,29 @@ class HeadView : RelativeLayout {
     }
 
     data class Builder(
-            var headDrawableRes: Int = 0,
-            var headViewAlpha: Float = 1f,
-            var allowHeadBounce: Boolean = true,
-            var headLayoutRes: Int = R.layout.app_head,
-            var headImageViewId: Int = R.id.ivHead,
+            var drawableRes: Int = 0,
+            var alpha: Float = 1f,
+            var allowBounce: Boolean = true,
+            var layoutRes: Int = R.layout.app_head,
+            var imageViewId: Int = R.id.ivHead,
             var setupImage: ((ImageView) -> Unit)? = null,
-            var onFinishHeadViewInflate: ((HeadView) -> Unit)? = null,
+            var onFinishInflate: ((HeadView) -> Unit)? = null,
             var onClick: ((HeadView) -> Unit)? = null,
             var onLongClick: ((HeadView) -> Unit)? = null,
+            var dismissOnClick: Boolean = true,
             var onDismiss: ((HeadView) -> Unit)? = null
     ) {
+
+        /**
+         * dismiss [HeadView] on click.
+         * @param dismiss boolean.
+         * @return [Builder] to allow chaining.
+         */
+        fun dismissOnClick(dismiss: Boolean): Builder {
+            dismissOnClick = dismiss
+            return this
+        }
+
         /**
          * called when user dismisses [HeadView] by moving it to [DismissView].
          * @param listener callback.
@@ -351,8 +364,8 @@ class HeadView : RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun layoutRes(@LayoutRes layoutRes: Int, @IdRes imageViewId: Int): Builder {
-            headLayoutRes = layoutRes
-            headImageViewId = imageViewId
+            this.layoutRes = layoutRes
+            this.imageViewId = imageViewId
             return this
         }
 
@@ -362,7 +375,7 @@ class HeadView : RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun alpha(alpha: Float): Builder {
-            headViewAlpha = alpha
+            this.alpha = alpha
             return this
         }
 
@@ -373,7 +386,7 @@ class HeadView : RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun allowBounce(allow: Boolean): Builder {
-            allowHeadBounce = allow
+            allowBounce = allow
             return this
         }
 
@@ -384,7 +397,7 @@ class HeadView : RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun onFinishInflate(listener: ((HeadView) -> Unit)?): Builder {
-            onFinishHeadViewInflate = listener
+            onFinishInflate = listener
             return this
         }
 
@@ -423,7 +436,7 @@ class HeadView : RelativeLayout {
     companion object {
         fun setup(context: Context): HeadView {
 
-            val view: View = LayoutInflaterHelper.inflateView(Head.headView.headLayoutRes, context)
+            val view: View = LayoutInflaterHelper.inflateView(Head.headView.layoutRes, context)
 
             require(view is HeadView) { "The root view of head view must be HeadView!" }
 

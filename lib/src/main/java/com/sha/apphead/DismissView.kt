@@ -21,7 +21,7 @@ class DismissView: RelativeLayout {
         get() = 1.5
 
     val scaleRatio
-        get() = Head.dismissView.dismissViewScaleRatio
+        get() = Head.dismissView.scaleRatio
 
     private lateinit var image: ImageView
 
@@ -54,10 +54,10 @@ class DismissView: RelativeLayout {
     override fun onFinishInflate() {
         super.onFinishInflate()
         Head.dismissView.run {
-            image = findViewById(dismissImageViewId)
-            image.setImageResource(dismissDrawableRes)
-            image.alpha = dismissViewAlpha
-            onFinishDismissViewInflate?.invoke(this@DismissView)
+            image = findViewById(imageViewId)
+            image.setImageResource(drawableRes)
+            image.alpha = alpha
+            onFinishInflate?.invoke(this@DismissView)
         }
     }
 
@@ -103,13 +103,12 @@ class DismissView: RelativeLayout {
     }
     
     data class Builder(
-            var dismissViewScaleRatio: Double = 1.5,
-            var dismissViewAlpha: Float = 0.8f,
-            var dismissLayoutRes: Int = R.layout.dismiss_view,
-            var dismissDrawableRes: Int = R.drawable.ic_dismiss_apphead,
-            var dismissImageViewId: Int = R.id.ivDismiss,
-            var dismissOnClick: Boolean = true,
-            var onFinishDismissViewInflate: ((DismissView) -> Unit)? = null,
+            var scaleRatio: Double = 1.5,
+            var alpha: Float = 0.8f,
+            var layoutRes: Int = R.layout.dismiss_view,
+            var drawableRes: Int = R.drawable.ic_dismiss_apphead,
+            var imageViewId: Int = R.id.ivDismiss,
+            var onFinishInflate: ((DismissView) -> Unit)? = null,
             var setupImage: ((ImageView) -> Unit)? = null
             ) {
 
@@ -119,20 +118,9 @@ class DismissView: RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun alpha(alpha: Float): Builder {
-            dismissViewAlpha = alpha
+            this.alpha = alpha
             return this
         }
-
-        /**
-         * dismiss [HeadView] on click.
-         * @param dismiss boolean.
-         * @return [Builder] to allow chaining.
-         */
-        fun dismissOnClick(dismiss: Boolean): Builder {
-            dismissOnClick = dismiss
-            return this
-        }
-
 
         /**
          * called when [DismissView] is inflated.
@@ -141,7 +129,7 @@ class DismissView: RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun onFinishInflate(listener: ((DismissView) -> Unit)?): Builder {
-            onFinishDismissViewInflate = listener
+            onFinishInflate = listener
             return this
         }
 
@@ -152,9 +140,9 @@ class DismissView: RelativeLayout {
          * @param imageViewId the id of the ImageView.
          * @return [Builder] to allow chaining.
          */
-        fun dismissLayoutRes(@LayoutRes layoutRes: Int, @IdRes imageViewId: Int): Builder {
-            dismissLayoutRes = layoutRes
-            dismissImageViewId = imageViewId
+        fun layoutRes(@LayoutRes layoutRes: Int, @IdRes imageViewId: Int): Builder {
+            this.layoutRes = layoutRes
+            this.imageViewId = imageViewId
             return this
         }
 
@@ -164,7 +152,7 @@ class DismissView: RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun drawableRes(@DrawableRes res: Int): Builder {
-            dismissDrawableRes = res
+            drawableRes = res
             return this
         }
 
@@ -176,7 +164,7 @@ class DismissView: RelativeLayout {
          * @return [Builder] to allow chaining.
          */
         fun scaleRatio(ratio: Double): Builder {
-            dismissViewScaleRatio = ratio
+            scaleRatio = ratio
             return this
         }
 
@@ -194,7 +182,7 @@ class DismissView: RelativeLayout {
 
     companion object {
         fun setup(context: Context): DismissView {
-            val view: View = LayoutInflaterHelper.inflateView(Head.dismissView.dismissLayoutRes, context)
+            val view: View = LayoutInflaterHelper.inflateView(Head.dismissView.layoutRes, context)
 
             require(view is DismissView) { "The root view of dismiss view must be DismissView!" }
 
