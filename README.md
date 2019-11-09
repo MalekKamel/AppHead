@@ -91,6 +91,26 @@ To customize `HeadView` and/or `DimissView` you must define the rootview as `Hea
 </com.sha.apphead.HeadView>
 ```
 
+### Options & Default Values
+
+|          **Option**                       | **Type**                | **Default** |
+| ------------------------------ | --------------------------- | ----------------------------- |
+| **headLayoutRes**              |    Layout Res               | R.layout.app_head             |
+| **dismissLayoutRes**           |    Layout Res               | R.layout.dismiss_view         |
+| **headDrawableRes**            |    Drawable Res             | R.layout.app_head             |
+| **dismissDrawableRes**         |    Drawable Res             | R.drawable.ic_dismiss_apphead |
+| **dismissViewScaleRatio**      |    Double                   | 1.5                           |                         
+| **headViewAlpha**              |    Float                    | 1f                            |
+| **dismissViewAlpha**           |    Float                    | 0.8f                          |
+| **allowHeadBounce**            |    Boolean                  | true                          |
+| **dismissOnClick**             |    Boolean                  | true                          |
+| **onFinishHeadViewInflate**    |    ((HeadView) -> Unit)?    | null                          |
+| **onFinishDismissViewInflate** |    ((DismissView) -> Unit)? | null                          |
+| **loadHeadImage**              |    ((ImageView) -> Unit)?   | null                          |
+| **onClick**                    |    ((HeadView) -> Unit)?    | null                          |
+| **onLongClick**                |    ((HeadView) -> Unit)?    | null                          |
+| **onDismiss**                  |    ((HeadView) -> Unit)?    | null                          |
+
 #### Look at 'sample' module for the full code. For more advanced example.
 
 ### License
