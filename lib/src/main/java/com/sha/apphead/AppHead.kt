@@ -20,7 +20,7 @@ class AppHead(builder: Head.Builder) {
      */
     fun show(activity: FragmentActivity) {
         if(!SystemOverlayHelper.checkDrawOverlayPermission(activity)) return
-        ServiceHelper.start(ChatHeadService::class.java, activity)
+        ServiceHelper.start(HeadService::class.java, activity)
     }
 
     /**
@@ -32,7 +32,7 @@ class AppHead(builder: Head.Builder) {
      */
     fun showWithoutPermissionRequest(context: Context) {
         if(!SystemOverlayHelper.canDrawOverlays(context)) return
-        ServiceHelper.start(ChatHeadService::class.java, context)
+        ServiceHelper.start(HeadService::class.java, context)
     }
 
     companion object {
@@ -42,7 +42,7 @@ class AppHead(builder: Head.Builder) {
          */
         @JvmStatic
         fun hide(context: Context) {
-            ServiceHelper.stop(ChatHeadService::class.java, context)
+            ServiceHelper.stop(HeadService::class.java, context)
         }
     }
 

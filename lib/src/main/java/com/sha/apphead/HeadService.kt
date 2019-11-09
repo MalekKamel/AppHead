@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.IBinder
 import android.view.WindowManager
 
-internal class ChatHeadService : Service() {
+internal class HeadService : Service() {
     private lateinit var headView: HeadView
 
     private lateinit var windowManager: WindowManager
@@ -27,17 +27,17 @@ internal class ChatHeadService : Service() {
         headView.listener = object: HeadViewListener {
 
             override fun onDismiss(view: HeadView) {
-                Head.args?.onDismiss?.invoke(view)
+                Head.headView.onDismiss?.invoke(view)
                 stopSelf()
             }
 
             override fun onClick(view: HeadView) {
-                Head.args?.onClick?.invoke(view)
-                if (Head.args?.dismissOnClick == true) stopSelf()
+                Head.headView.onClick?.invoke(view)
+                if (Head.dismissView.dismissOnClick) stopSelf()
             }
 
             override fun onLongClick(view: HeadView) {
-                Head.args?.onLongClick?.invoke(view)
+                Head.headView.onLongClick?.invoke(view)
             }
         }
     }

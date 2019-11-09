@@ -15,93 +15,93 @@ class HeadTest {
     @Test
     fun headDrawableRes() {
         builder.build()
-        assert(Head.args!!.headDrawableRes == -1)
+        assert(Head.headView.headDrawableRes == -1)
     }
 
     @Test
     fun dismissLayoutRes() {
         builder.dismissLayoutRes(1, 2)
-        assert(Head.args!!.dismissLayoutRes == 1)
-        assert(Head.args!!.dismissImageViewId == 2)
+        assert(Head.dismissView.dismissLayoutRes == 1)
+        assert(Head.dismissView.dismissImageViewId == 2)
     }
 
     @Test
     fun headLayoutRes() {
         builder.headLayoutRes(1, 2)
-        assert(Head.args!!.headLayoutRes == 1)
-        assert(Head.args!!.headImageViewId == 2)
+        assert(Head.headView.headLayoutRes == 1)
+        assert(Head.headView.headImageViewId == 2)
     }
 
     @Test
     fun dismissDrawableRes() {
         builder.dismissDrawableRes(1)
-        assert(Head.args!!.dismissDrawableRes == 1)
+        assert(Head.dismissView.dismissDrawableRes == 1)
     }
 
     @Test
     fun dismissViewScaleRatio() {
         builder.dismissViewScaleRatio(1.0)
-        assert(Head.args!!.dismissViewScaleRatio == 1.0)
+        assert(Head.dismissView.dismissViewScaleRatio == 1.0)
     }
 
     @Test
     fun headViewAlpha() {
         builder.headViewAlpha(1f)
-        assert(Head.args!!.headViewAlpha == 1f)
+        assert(Head.headView.headViewAlpha == 1f)
     }
 
     @Test
     fun allowHeadBounce() {
         builder.allowHeadBounce(true)
-        assert(Head.args!!.allowHeadBounce)
+        assert(Head.headView.allowHeadBounce)
     }
 
     @Test
     fun dismissViewAlpha() {
         builder.dismissViewAlpha(1f)
-        assert(Head.args!!.dismissViewAlpha == 1f)
+        assert(Head.dismissView.dismissViewAlpha == 1f)
     }
 
     @Test
     fun dismissOnClick() {
         builder.dismissOnClick(true)
-        assert(Head.args!!.dismissOnClick)
+        assert(Head.dismissView.dismissOnClick)
     }
 
     @Test
     fun onFinishHeadViewInflate() {
         builder.onFinishHeadViewInflate {}
-        assert(Head.args!!.onFinishHeadViewInflate != null)
+        assert(Head.headView.onFinishHeadViewInflate != null)
     }
 
     @Test
     fun loadHeadImage() {
         builder.loadHeadImage {}
-        assert(Head.args!!.loadHeadImage != null)
+        assert(Head.headView.setupImage != null)
     }
 
     @Test
     fun onFinishDismissViewInflate() {
         builder.onFinishDismissViewInflate {}
-        assert(Head.args!!.onFinishDismissViewInflate != null)
+        assert(Head.dismissView.onFinishDismissViewInflate != null)
     }
 
     @Test
     fun onClick() {
         builder.onClick {}
-        assert(Head.args!!.onClick != null)
+        assert(Head.headView.onClick != null)
     }
 
     @Test
     fun onLongClick() {
         builder.onLongClick {}
-        assert(Head.args!!.onLongClick != null)
+        assert(Head.headView.onLongClick != null)
     }
 
     @Test
     fun onDismiss() {
         builder.onDismiss {}
-        assert(Head.args!!.onDismiss != null)
+        assert(Head.headView.onDismiss != null)
     }
 
 }

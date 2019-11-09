@@ -22,7 +22,7 @@ internal class PermissionFrag : Fragment() {
             this.requestCode -> {
                 activity?.apply {
                     if (!SystemOverlayHelper.canDrawOverlays(this)) return
-                    ServiceHelper.start(ChatHeadService::class.java, this)
+                    ServiceHelper.start(HeadService::class.java, this)
                 }
             }
         }

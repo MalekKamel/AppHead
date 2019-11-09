@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.sha.apphead.AppHead
+import com.sha.apphead.DismissView
 import com.sha.apphead.Head
+import com.sha.apphead.HeadView
 import com.squareup.picasso.Picasso
 
 class MainActivity : FragmentActivity() {
@@ -20,18 +22,18 @@ class MainActivity : FragmentActivity() {
     private fun setup() {
         findViewById<View>(R.id.btnShowHead).setOnClickListener {
             val builder = Head.Builder(R.drawable.ic_messenger)
-                    .onClick {
+                    .headView(HeadView.Builder().onClick {
                         Intent(this, MessengerActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                             startActivity(this)
                         }
-                    }
+                    })
             AppHead(builder).show(this)
         }
 
         findViewById<View>(R.id.btnShowReadHead).setOnClickListener {
-            val builder = Head.Builder(R.drawable.ic_messenger_red)
-                    .headLayoutRes(R.layout.app_head_red, R.id.headImageView)
+            val headViewBuilder = HeadView.Builder()
+                    .layoutRes(R.layout.app_head_red, R.id.headImageView)
                     .onClick {
                         Intent(this, MessengerActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -39,7 +41,10 @@ class MainActivity : FragmentActivity() {
                         }
                     }
                     .onLongClick { log("onLongClick") }
-                    .loadHeadImage {
+                    .alpha(0.8f)
+                    .allowBounce(false)
+                    .onFinishInflate { log("onFinishHeadViewInflate")  }
+                    .setupImage {
                         it.layoutParams.height = 190
                         it.layoutParams.width = 190
                         Picasso.get()
@@ -47,15 +52,20 @@ class MainActivity : FragmentActivity() {
                                 .placeholder(R.drawable.ic_messenger_red)
                                 .into(it)
                     }
-                    .dismissViewScaleRatio(1.0)
-                    .dismissDrawableRes(R.drawable.ic_dismiss)
-                    .dismissOnClick(false)
-                    .headViewAlpha(0.8f)
-                    .dismissViewAlpha(0.5f)
-                    .allowHeadBounce(false)
-                    .onFinishHeadViewInflate { log("onFinishHeadViewInflate")  }
-                    .onFinishDismissViewInflate {  log("onFinishDismissViewInflate") }
                     .onDismiss { log("onDismiss") }
+
+            val dismissViewBuilder = DismissView.Builder()
+                    .alpha(0.5f)
+                    .scaleRatio(1.0)
+                    .drawableRes(R.drawable.ic_dismiss)
+                    .dismissOnClick(false)
+                    .onFinishInflate {  log("onFinishDismissViewInflate") }
+                    .setupImage { }
+
+            val builder = Head.Builder(R.drawable.ic_messenger_red)
+                    .headView(headViewBuilder)
+                    .dismissView(dismissViewBuilder)
+
             AppHead(builder).show(this)
         }
     }
