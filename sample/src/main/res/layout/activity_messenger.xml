@@ -42,9 +42,7 @@
             android:layout_gravity="end"
             android:layout_margin="10dp"
             android:background="?android:attr/selectableItemBackground"
-            app:srcCompat="@drawable/ic_send"
-            android:text="Submit"
-            android:textColor="@color/white" />
+            android:src="@drawable/ic_send"/>
 
     </LinearLayout>
 
