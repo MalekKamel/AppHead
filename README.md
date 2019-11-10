@@ -37,8 +37,8 @@ val headViewArgs = HeadView.Args()
         .alpha(0.8f)
         .allowBounce(false)
         .onFinishInflate {..}
-        .setupImage {.}
-        .onDismiss {.}
+        .setupImage {..}
+        .onDismiss {..}
         .dismissOnClick(false)
         .preserveScreenLocation(false)
 
@@ -47,7 +47,7 @@ val dismissViewArgs = DismissView.Args()
         .alpha(0.5f)
         .scaleRatio(1.0)
         .drawableRes(R.drawable.ic_dismiss)
-        .onFinishInflate {  log("onFinishDismissViewInflate") }
+        .onFinishInflate { }
         .setupImage {..}
 
 // build BadgeView
