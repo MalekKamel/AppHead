@@ -6,7 +6,7 @@ import android.os.IBinder
 import android.view.WindowManager
 
 internal class HeadService : Service() {
-    private lateinit var headView: HeadView
+    private var headView: HeadView? = null
 
     private lateinit var windowManager: WindowManager
 
@@ -27,7 +27,7 @@ internal class HeadService : Service() {
     private fun setupHeadView() {
         headView = HeadView.setup(this)
 
-        headView.listener = object: HeadViewListener {
+        headView!!.listener = object: HeadViewListener {
 
             override fun onDismiss(view: HeadView) {
                 Head.headViewArgs.onDismiss?.invoke(view)
@@ -47,8 +47,10 @@ internal class HeadService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        headView.cleanup()
-        windowManager.removeView(headView)
+        headView?.run {
+            cleanup()
+            windowManager.removeView(this)
+        }
         // clean up singleton to avoid memory leaks
         Head.args = null
     }
