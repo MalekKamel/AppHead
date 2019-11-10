@@ -21,10 +21,10 @@ internal class HeadService : Service() {
             return
         }
         windowManager = WindowManagerHelper.manager(this)
-        setupChatHeadView()
+        setupHeadView()
     }
 
-    private fun setupChatHeadView() {
+    private fun setupHeadView() {
         headView = HeadView.setup(this)
 
         headView.listener = object: HeadViewListener {
