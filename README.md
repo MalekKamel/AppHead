@@ -2,7 +2,7 @@ AppHead
 ===========
 Head View like Facebook Messenger for Android.
 
-<img src="https://github.com/ShabanKamell/AppHead/blob/master/blob/raw/demo.gif" height="400">
+<img src="https://github.com/ShabanKamell/AppHead/blob/master/blob/raw/demo_new.gif" height="400">
 
 #### Gradle:
 ```groovy
