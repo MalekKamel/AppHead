@@ -23,11 +23,8 @@ dependencies {
 ### Usage
 The most simple usage
 ``` kotlin
- val builder = Head.Builder(R.drawable.ic_messenger)
-        .headView(HeadView.Args().onClick {..})
-        .badgeView(badgeViewBuilder)
-
- AppHead(builder).show(this)
+ builder = Head.Builder(R.drawable.icon).headView(HeadView.Args().onClick {..})
+ AppHead(builder).show(activity)
 ```
 All available options
 
