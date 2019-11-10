@@ -44,7 +44,7 @@ class SharedPref(private val context: Context) {
         return pref.getInt(key.name, def)
     }
 
-    var lastScreenLocation: ScreenLocation
+    internal var lastScreenLocation: ScreenLocation
         get() {
             val x = getInt(Key.LAST_SCREEN_LOCATION_X, 0)
             val y = getInt(Key.LAST_SCREEN_LOCATION_Y, 100)

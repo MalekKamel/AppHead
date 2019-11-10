@@ -18,7 +18,6 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun setup() {
-        showDefault()
         findViewById<View>(R.id.btnShowHead).setOnClickListener {
             showDefault()
         }
@@ -69,6 +68,8 @@ class MainActivity : FragmentActivity() {
 
         // build BadgeView
         val badgeViewArgs = BadgeView.Args()
+                .layoutRes(R.layout.badge_view, R.id.tvCount)
+                .position(BadgeView.Position.TOP_END)
                 .count("3333")
 
         val builder = Head.Builder(R.drawable.ic_messenger_red)
@@ -111,3 +112,40 @@ class MainActivity : FragmentActivity() {
         Log.i(javaClass.simpleName, message)
     }
 }
+
+/*
+// HeadView
+|          **Option**                       | **Type**                | **Default** |
+| ------------------------------ | --------------------------- | ----------------------------- |
+| **layoutRes**                  |    Layout Res               | R.layout.app_head             |
+| **imageViewId**                |    Layout Res               | R.layout.ivHead               |
+| **drawableRes**                |    Drawable Res             | 0(REQUIRED                    |
+| **alpha**                      |    Float                    | 1f                            |
+| **allowBounce**                |    Boolean                  | true                          |
+| **preserveScreenLocation**     |    Boolean                  | true                          |
+| **dismissOnClick**             |    Boolean                  | true                          |
+| **setupImage**                 |    ((ImageView) -> Unit)?   | null                          |
+| **onFinishInflate**            |    ((HeadView) -> Unit)?    | null                          |
+| **onClick**                    |    ((HeadView) -> Unit)?    | null                          |
+| **onLongClick**                |    ((HeadView) -> Unit)?    | null                          |
+| **onDismiss**                  |    ((HeadView) -> Unit)?    | null                          |
+
+DismissView
+|          **Option**                       | **Type**                | **Default** |
+| ------------------------------ | --------------------------- | ----------------------------- |
+| **layoutRes**                  |    Layout Res               | R.layout.dismiss_view         |
+| **imageViewId**                |    ID Res                   | R.layout.ivDismiss            |
+| **drawableRes**                |    Drawable Res             | R.drawable.ic_dismiss_apphead |
+| **scaleRatio**                 |    Double                   | 1.5                           |
+| **alpha**                      |    Float                    | 1f                            |
+| **setupImage**                 |    ((ImageView) -> Unit)?   | null                          |
+| **onFinishInflate**            |    ((DismissView) -> Unit)? | null                          |
+
+BadgeView
+|          **Option**                       | **Type**                | **Default** |
+| ------------------------------ | --------------------------- | ----------------------------- |
+| **layoutRes**                  |    Layout Res               | R.layout.badge_view           |
+| **count**                      |    String                   | ""                            |
+| **countTextViewId**            |    ID Res                   | R.id.tvCount                  |
+| **position**                   |    BadgeView.Position       | BadgeView.Position.TOP_END    |
+ */
