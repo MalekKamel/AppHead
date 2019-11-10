@@ -1,7 +1,6 @@
 package com.sha.apphead
 
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.view.WindowManager
@@ -17,7 +16,11 @@ internal class HeadService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        if (Head.args == null) {
+            stopSelf()
+            return
+        }
+        windowManager = WindowManagerHelper.manager(this)
         setupChatHeadView()
     }
 
