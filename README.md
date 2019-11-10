@@ -47,7 +47,7 @@ val dismissViewArgs = DismissView.Args()
         .alpha(0.5f)
         .scaleRatio(1.0)
         .drawableRes(R.drawable.ic_dismiss)
-        .onFinishInflate { }
+        .onFinishInflate {..}
         .setupImage {..}
 
 // build BadgeView
