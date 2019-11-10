@@ -308,7 +308,6 @@ class HeadView : FrameLayout {
 
         when(newConfig.orientation) {
             Configuration.ORIENTATION_LANDSCAPE -> {
-
                 if (params.y + (height + statusBarHeight) > szWindow.y) {
                     params.y = szWindow.y - (height + statusBarHeight)
                     WindowManagerHelper.updateViewLayout(this, layoutParams)
@@ -320,7 +319,6 @@ class HeadView : FrameLayout {
             }
 
             Configuration.ORIENTATION_PORTRAIT -> {
-
                 if (params.x > szWindow.x) {
                     resetPosition(szWindow.x)
                 }

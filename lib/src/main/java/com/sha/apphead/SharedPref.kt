@@ -56,7 +56,7 @@ class SharedPref(private val context: Context) {
         set(value) {
             putInt(value.x, Key.LAST_SCREEN_LOCATION_X)
             putInt(value.y, Key.LAST_SCREEN_LOCATION_Y)
-            putInt(value.y, Key.LAST_SCREEN_LOCATION_ORIENTATION)
+            putInt(value.orientation, Key.LAST_SCREEN_LOCATION_ORIENTATION)
         }
 
 }
