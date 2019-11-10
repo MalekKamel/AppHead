@@ -46,11 +46,15 @@ class SharedPref(private val context: Context) {
 
     internal var lastScreenLocation: ScreenLocation
         get() {
-            val x = getInt(Key.LAST_SCREEN_LOCATION_X, 0)
-            val y = getInt(Key.LAST_SCREEN_LOCATION_Y, 100)
-            val orientation = getInt(
-                    Key.LAST_SCREEN_LOCATION_ORIENTATION,
-                    context.resources.configuration.orientation)
+            val currentOrientation = context.resources.configuration.orientation
+            val orientation = getInt(Key.LAST_SCREEN_LOCATION_ORIENTATION, currentOrientation)
+
+            if(orientation != currentOrientation)
+                return ScreenLocation.default(context)
+
+            val x = getInt(Key.LAST_SCREEN_LOCATION_X, ScreenLocation.DEF_X)
+            val y = getInt(Key.LAST_SCREEN_LOCATION_Y, ScreenLocation.DEF_Y)
+
             return ScreenLocation(x, y, orientation)
         }
         set(value) {

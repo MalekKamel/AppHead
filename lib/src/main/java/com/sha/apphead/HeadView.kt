@@ -478,17 +478,9 @@ class HeadView : FrameLayout {
         }
 
         private fun showInLastLocation(context: Context, params: WindowManager.LayoutParams) {
-            var lastScreenLocation = SharedPref(context).lastScreenLocation
-            if (lastScreenLocation.isOrientationChanged(context)) {
-                lastScreenLocation = ScreenLocation(
-                        0,
-                        100,
-                        context.resources.configuration.orientation)
-                SharedPref(context).lastScreenLocation = lastScreenLocation
-            }
-
-            params.x = lastScreenLocation.x
-            params.y = lastScreenLocation.y
+            val location = SharedPref(context).lastScreenLocation
+            params.x = location.x
+            params.y = location.y
         }
     }
 
