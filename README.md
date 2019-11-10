@@ -23,43 +23,63 @@ dependencies {
 ### Usage
 The most simple usage
 ``` kotlin
-  val args = Head.Builder(R.drawable.ic_messenger).onClick {..}
-  AppHead(args).show(activity)
+ val builder = Head.Builder(R.drawable.ic_messenger)
+        .headView(HeadView.Args().onClick {..})
+        .badgeView(badgeViewBuilder)
+
+ AppHead(builder).show(this)
 ```
 All available options
 
 ``` kotlin
-val args = Head.Builder(R.drawable.ic_messenger_red)
-        .headLayoutRes(R.layout.head_view, R.id.headImageView)
-        .dismissLayoutRes(R.layout.dismiss_view, R.id.dimissImageView)
+// build HeadView
+val headViewArgs = HeadView.Args()
+        .layoutRes(R.layout.app_head_red, R.id.headImageView)
         .onClick {..}
         .onLongClick {..}
-        .loadHeadImage { Picasso.get().load("...").into(it) }
-        .dismissViewScaleRatio(1.0)
-        .dismissDrawableRes(R.drawable.ic_dismiss)
+        .alpha(0.8f)
+        .allowBounce(false)
+        .onFinishInflate {..}
+        .setupImage {.}
+        .onDismiss {.}
         .dismissOnClick(false)
-        .headViewAlpha(0.8f)
-        .dismissViewAlpha(0.5f)
-        .allowHeadBounce(false)
-        .onFinishHeadViewInflate {..}
-        .onFinishDismissViewInflate {..}
-        .onDismiss {..}
-AppHead(args).show(activity)
+        .preserveScreenLocation(false)
+
+// build DismissView
+val dismissViewArgs = DismissView.Args()
+        .alpha(0.5f)
+        .scaleRatio(1.0)
+        .drawableRes(R.drawable.ic_dismiss)
+        .onFinishInflate {  log("onFinishDismissViewInflate") }
+        .setupImage {..}
+
+// build BadgeView
+val badgeViewArgs = BadgeView.Args()
+        .layoutRes(R.layout.badge_view, R.id.tvCount)
+        .position(BadgeView.Position.TOP_END)
+        .count("3333")
+
+val builder = Head.Builder(R.drawable.ic_messenger_red)
+        .headView(headViewArgs)
+        .dismissView(dismissViewArgs)
+        .badgeView(badgeViewArgs)
+
+AppHead(builder).show(activity)
 ```
 ### Components
-AppHead has 2 main components
+AppHead has 3 main components
 - [ ] **HeadView**: the draggable & dismissable view.
 - [ ] **DimissView**: the view at the bottom that acts as bounds within which the **HeadView** can be dimissed.
+- [ ] **BadgeView**(optinal): displays the number of notifications.
 
 ### Customize Components Layouts
-In addition to setting all options to the components, you also can define full custom components layouts.
-To customize `HeadView` and/or `DimissView` you must define the rootview as `HeadView` or `DimissView`
+In addition to configuring all options of the components, you also can define full custom components layouts.
+To customize `HeadView`, `DimissView` or `BadgeView` 
+you must define the rootview as `HeadView`, `DimissView` or `BadgeView`
+
 ``` xml
 <com.sha.apphead.HeadView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    ..>
 
     <ImageView
         android:id="@+id/headImageView"
@@ -75,10 +95,7 @@ To customize `HeadView` and/or `DimissView` you must define the rootview as `Hea
 
 ``` xml
 <com.sha.apphead.DismissView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+   ..>
 
     <ImageView
         android:id="@+id/dimissImageView"
@@ -91,25 +108,63 @@ To customize `HeadView` and/or `DimissView` you must define the rootview as `Hea
 </com.sha.apphead.DismissView>
 ```
 
+``` xml
+<com.sha.apphead.BadgeView
+    ..>
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:lines="1"
+        android:minWidth="16dp"
+        android:minHeight="16dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        tools:text="11111" />
+
+</com.sha.apphead.BadgeView>
+```
+
 ### Options & Default Values
+#### Headview.Args
 
 |          **Option**                       | **Type**                | **Default** |
 | ------------------------------ | --------------------------- | ----------------------------- |
-| **headLayoutRes**              |    Layout Res               | R.layout.app_head             |
-| **dismissLayoutRes**           |    Layout Res               | R.layout.dismiss_view         |
-| **headDrawableRes**            |    Drawable Res             | 0                             |
-| **dismissDrawableRes**         |    Drawable Res             | R.drawable.ic_dismiss_apphead |
-| **dismissViewScaleRatio**      |    Double                   | 1.5                           |                         
-| **headViewAlpha**              |    Float                    | 1f                            |
-| **dismissViewAlpha**           |    Float                    | 0.8f                          |
-| **allowHeadBounce**            |    Boolean                  | true                          |
+| **layoutRes**                  |    Layout Res               | R.layout.app_head             |
+| **imageViewId**                |    ID Res                   | R.layout.ivHead               |
+| **drawableRes**                |    Drawable Res             | 0(REQUIRED                    |
+| **alpha**                      |    Float                    | 1f                            |
+| **allowBounce**                |    Boolean                  | true                          |
+| **preserveScreenLocation**     |    Boolean                  | true                          |
 | **dismissOnClick**             |    Boolean                  | true                          |
-| **onFinishHeadViewInflate**    |    ((HeadView) -> Unit)?    | null                          |
-| **onFinishDismissViewInflate** |    ((DismissView) -> Unit)? | null                          |
-| **loadHeadImage**              |    ((ImageView) -> Unit)?   | null                          |
+| **setupImage**                 |    ((ImageView) -> Unit)?   | null                          |
+| **onFinishInflate**            |    ((HeadView) -> Unit)?    | null                          |
 | **onClick**                    |    ((HeadView) -> Unit)?    | null                          |
 | **onLongClick**                |    ((HeadView) -> Unit)?    | null                          |
 | **onDismiss**                  |    ((HeadView) -> Unit)?    | null                          |
+
+#### DismissView.Args
+|          **Option**                       | **Type**                | **Default** |
+| ------------------------------ | --------------------------- | ----------------------------- |
+| **layoutRes**                  |    Layout Res               | R.layout.dismiss_view         |
+| **imageViewId**                |    ID Res                   | R.layout.ivDismiss            |
+| **drawableRes**                |    Drawable Res             | R.drawable.ic_dismiss_apphead |
+| **scaleRatio**                 |    Double                   | 1.5                           |
+| **alpha**                      |    Float                    | 1f                            |
+| **setupImage**                 |    ((ImageView) -> Unit)?   | null                          |
+| **onFinishInflate**            |    ((DismissView) -> Unit)? | null                          |
+
+#### BadgeView.Args
+|          **Option**                       | **Type**                | **Default** |
+| ------------------------------ | --------------------------- | ----------------------------- |
+| **layoutRes**                  |    Layout Res               | R.layout.badge_view           |
+| **count**                      |    String                   | ""                            |
+| **countTextViewId**            |    ID Res                   | R.id.tvCount                  |
+| **position**                   |    BadgeView.Position       | BadgeView.Position.TOP_END    |
 
 #### Look at 'sample' module for the full code. For more advanced example.
 
