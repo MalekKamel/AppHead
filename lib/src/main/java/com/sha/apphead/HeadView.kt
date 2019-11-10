@@ -225,6 +225,7 @@ class HeadView : FrameLayout {
         if (xCord <= szWindow.x / 2) moveToStart(xCord)
         else moveToEnd(xCord)
     }
+    var bounceCountDownTimer: CountDownTimer? = null
 
     private fun moveToStart(xCord: Int) {
         if(!Head.headViewArgs.allowBounce) {
@@ -234,7 +235,7 @@ class HeadView : FrameLayout {
         }
         val x = szWindow.x - xCord
 
-        object : CountDownTimer(500, 5) {
+         bounceCountDownTimer = object : CountDownTimer(500, 5) {
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
                 params.x = 0 - bounceValue(step, x.toLong()).toInt()
@@ -264,7 +265,7 @@ class HeadView : FrameLayout {
             return
         }
 
-        object : CountDownTimer(500, 5) {
+        bounceCountDownTimer = object : CountDownTimer(500, 5) {
             override fun onTick(t: Long) {
                 val step = (500 - t) / 5
                 params.x = szWindow.x + bounceValue(step, xCord.toLong()).toInt() - width
@@ -305,7 +306,6 @@ class HeadView : FrameLayout {
 
         windowManager.defaultDisplay.getSize(szWindow)
 
-
         when(newConfig.orientation) {
             Configuration.ORIENTATION_LANDSCAPE -> {
                 if (params.y + (height + statusBarHeight) > szWindow.y) {
@@ -326,6 +326,9 @@ class HeadView : FrameLayout {
         }
     }
 
+    internal fun cleanup() {
+        bounceCountDownTimer?.cancel()
+    }
 
     data class Args(
             internal var drawableRes: Int = 0,

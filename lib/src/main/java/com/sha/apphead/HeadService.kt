@@ -47,6 +47,7 @@ internal class HeadService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        headView.cleanup()
         windowManager.removeView(headView)
         // clean up singleton to avoid memory leaks
         Head.args = null
