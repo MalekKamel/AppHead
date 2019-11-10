@@ -77,7 +77,6 @@ you must define the rootview as `HeadView`, `DimissView` or `BadgeView`
 ``` xml
 <com.sha.apphead.HeadView 
     ..>
-
     <ImageView
         android:id="@+id/headImageView"
         android:layout_width="wrap_content"
@@ -85,7 +84,6 @@ you must define the rootview as `HeadView`, `DimissView` or `BadgeView`
         app:srcCompat="@drawable/ic_messenger"
         android:layout_margin="4dp"
         />
-
 </com.sha.apphead.HeadView>
 
 ```
@@ -93,7 +91,6 @@ you must define the rootview as `HeadView`, `DimissView` or `BadgeView`
 ``` xml
 <com.sha.apphead.DismissView 
    ..>
-
     <ImageView
         android:id="@+id/dimissImageView"
         android:layout_width="wrap_content"
@@ -101,28 +98,18 @@ you must define the rootview as `HeadView`, `DimissView` or `BadgeView`
         app:srcCompat="@drawable/ic_dimiss"
         android:layout_margin="4dp"
         />
-
 </com.sha.apphead.DismissView>
 ```
 
 ``` xml
 <com.sha.apphead.BadgeView
     ..>
-
     <TextView
         android:id="@+id/tvCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:gravity="center"
-        android:lines="1"
-        android:minWidth="16dp"
-        android:minHeight="16dp"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        tools:text="11111" />
-
+        />
 </com.sha.apphead.BadgeView>
 ```
 
