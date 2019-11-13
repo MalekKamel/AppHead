@@ -154,7 +154,7 @@ you must define the rootview as `HeadView`, `DimissView` or `BadgeView`
 
 ## Credit
 [henrychuangtw/Android-ChatHead](https://github.com/henrychuangtw/Android-ChatHead)
-### License
+### 🛡 License
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
