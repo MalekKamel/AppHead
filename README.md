@@ -24,11 +24,50 @@ dependencies {
 
 ### Usage
 The most simple usage
+
+``` kotlin
+AppHead.create(R.drawable.ic_messenger) {
+     headView { onClick { .. } }
+ }.show(activity)
+```
+
+Or using builders (proper for Java)
+
 ``` kotlin
  builder = Head.Builder(R.drawable.icon).headView(HeadView.Args().onClick {..})
  AppHead(builder).show(activity)
 ```
+
 All available options
+``` kotlin
+AppHead.create(R.drawable.ic_messenger_red) {
+    headView {
+        layoutRes(R.layout.app_head_red, R.id.headImageView)
+        onClick { showMessenger() }
+        onLongClick { log("onLongClick") }
+        alpha(0.9f)
+        allowBounce(false)
+        onFinishInflate { log("onFinishHeadViewInflate")  }
+        setupImage { loadImage(it) }
+        onDismiss { log("onDismiss") }
+        dismissOnClick(false)
+        preserveScreenLocation(false)
+    }
+    badgeView {
+        count("100")
+        position(BadgeView.Position.TOP_END)
+    }
+    dismissView {
+        alpha(0.5f)
+        scaleRatio(1.0)
+        drawableRes(R.drawable.ic_dismiss)
+        onFinishInflate {  log("onFinishDismissViewInflate") }
+        setupImage { }
+    }
+}.show(this)
+```
+
+Or using builders (proper for Java)
 
 ``` kotlin
 // build HeadView
