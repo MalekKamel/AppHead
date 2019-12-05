@@ -1,6 +1,7 @@
 package com.sha.apphead
 
 import android.content.Context
+import androidx.annotation.DrawableRes
 import androidx.fragment.app.FragmentActivity
 
 /**
@@ -44,6 +45,10 @@ class AppHead(builder: Head.Builder) {
         fun hide(context: Context) {
             ServiceHelper.stop(HeadService::class.java, context)
         }
-    }
 
+        @JvmStatic
+        fun create(@DrawableRes headDrawableRes: Int, block: Head.Builder.() -> Unit): AppHead {
+            return AppHead(Head.Builder(headDrawableRes).apply { block() })
+        }
+    }
 }

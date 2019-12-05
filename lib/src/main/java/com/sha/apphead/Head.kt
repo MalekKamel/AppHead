@@ -26,8 +26,8 @@ object Head {
      * @param headDrawableRes the drawable of the head.
      */
     class Builder(@DrawableRes private val headDrawableRes: Int) {
-        private var headViewBuilder = HeadView.Args()
-        private var dismissViewBuilder = DismissView.Args()
+        private var headViewArgs = HeadView.Args()
+        private var dismissViewArgs = DismissView.Args()
         private var badgeViewArgs: BadgeView.Args? = null
 
         /**
@@ -36,7 +36,19 @@ object Head {
          * @return [Builder] to allow chaining.
          */
         fun headView(args: HeadView.Args): Builder {
-            headViewBuilder = args
+            headViewArgs = args
+            return this
+        }
+
+        /**
+         * build [HeadView].
+         * @param block provides view options.
+         * @return [Builder] to allow chaining.
+         */
+        fun headView(block: HeadView.Args.() -> Unit): Builder {
+            val builder = HeadView.Args()
+            builder.block()
+            headViewArgs = builder
             return this
         }
 
@@ -46,7 +58,19 @@ object Head {
          * @return [Builder] to allow chaining.
          */
         fun dismissView(args: DismissView.Args): Builder {
-            dismissViewBuilder = args
+            dismissViewArgs = args
+            return this
+        }
+
+        /**
+         * build [DismissView].
+         * @param block provides view options.
+         * @return [Builder] to allow chaining.
+         */
+        fun dismissView(block: DismissView.Args.() -> Unit): Builder {
+            val builder = DismissView.Args()
+            builder.block()
+            dismissViewArgs = builder
             return this
         }
 
@@ -61,12 +85,24 @@ object Head {
         }
 
         /**
+         * build [BadgeView].
+         * @param block provides view options.
+         * @return [Builder] to allow chaining.
+         */
+        fun badgeView(block: BadgeView.Args.() -> Unit): Builder {
+            val builder = BadgeView.Args()
+            builder.block()
+            badgeViewArgs = builder
+            return this
+        }
+
+        /**
          * build the object.
          * @return [Head] containing info.
          */
         internal fun build(): Head {
-            headViewBuilder.drawableRes = headDrawableRes
-            args = AppHeadArgs(headViewBuilder, dismissViewBuilder, badgeViewArgs)
+            headViewArgs.drawableRes = headDrawableRes
+            args = AppHeadArgs(headViewArgs, dismissViewArgs, badgeViewArgs)
             return Head
         }
 

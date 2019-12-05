@@ -19,11 +19,13 @@ class MainActivity : FragmentActivity() {
 
     private fun setup() {
         findViewById<View>(R.id.btnShowHead).setOnClickListener {
-            showDefault()
+            // showDefault()
+            showDefaultUsingKotlinDsl()
         }
 
         findViewById<View>(R.id.btnShowReadHead).setOnClickListener {
-            showCustom()
+            //showCustom()
+            showCustomUsingKotlinDsl()
         }
 
         findViewById<View>(R.id.btnUpdateBadge).setOnClickListener {
@@ -42,6 +44,16 @@ class MainActivity : FragmentActivity() {
                 .badgeView(badgeViewBuilder)
 
         AppHead(builder).show(this)
+    }
+
+    private fun showDefaultUsingKotlinDsl() {
+        AppHead.create(R.drawable.ic_messenger) {
+            headView { onClick { showMessenger() } }
+            badgeView {
+                count("100")
+                position(BadgeView.Position.TOP_END)
+            }
+        }.show(this)
     }
 
     private fun showCustom() {
@@ -71,6 +83,34 @@ class MainActivity : FragmentActivity() {
                 .dismissView(dismissViewArgs)
 
         AppHead(builder).show(this)
+    }
+
+    private fun showCustomUsingKotlinDsl() {
+        AppHead.create(R.drawable.ic_messenger_red) {
+            headView {
+                layoutRes(R.layout.app_head_red, R.id.headImageView)
+                onClick { showMessenger() }
+                onLongClick { log("onLongClick") }
+                alpha(0.9f)
+                allowBounce(false)
+                onFinishInflate { log("onFinishHeadViewInflate")  }
+                setupImage { loadImage(it) }
+                onDismiss { log("onDismiss") }
+                dismissOnClick(false)
+                preserveScreenLocation(false)
+            }
+            badgeView {
+                count("100")
+                position(BadgeView.Position.TOP_END)
+            }
+            dismissView {
+                alpha(0.5f)
+                scaleRatio(1.0)
+                drawableRes(R.drawable.ic_dismiss)
+                onFinishInflate {  log("onFinishDismissViewInflate") }
+                setupImage { }
+            }
+        }.show(this)
     }
 
     private fun loadImage(iv: ImageView) {

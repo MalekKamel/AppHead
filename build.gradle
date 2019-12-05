@@ -18,6 +18,3 @@ allprojects {
         google()
     }
 }
-
-dependencies {
-}
