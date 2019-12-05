@@ -43,13 +43,13 @@ All available options
 AppHead.create(R.drawable.ic_messenger_red) {
     headView {
         layoutRes(R.layout.app_head_red, R.id.headImageView)
-        onClick { showMessenger() }
-        onLongClick { log("onLongClick") }
+        onClick {..}
+        onLongClick {..}
         alpha(0.9f)
         allowBounce(false)
-        onFinishInflate { log("onFinishHeadViewInflate")  }
-        setupImage { loadImage(it) }
-        onDismiss { log("onDismiss") }
+        onFinishInflate { .. }
+        setupImage {..}
+        onDismiss {..}
         dismissOnClick(false)
         preserveScreenLocation(false)
     }
@@ -61,7 +61,7 @@ AppHead.create(R.drawable.ic_messenger_red) {
         alpha(0.5f)
         scaleRatio(1.0)
         drawableRes(R.drawable.ic_dismiss)
-        onFinishInflate {  log("onFinishDismissViewInflate") }
+        onFinishInflate {..}
         setupImage { }
     }
 }.show(this)
