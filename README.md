@@ -20,8 +20,7 @@ dependencies {
      implementation 'com.github.ShabanKamell:AppHead:x.y.z'
 }
 ```
-(Please replace x, y and z with the latest version numbers:  [![](https://jitpack.io/v/ShabanKamell/AppHead.svg)](https://jitpack.io/#ShabanKamell/AppHead)
-)
+(Please replace x, y and z with the latest version numbers:  [![](https://jitpack.io/v/ShabanKamell/AppHead.svg)](https://jitpack.io/#ShabanKamell/AppHead))
 
 ### Usage
 The most simple usage
