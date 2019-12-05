@@ -27,7 +27,7 @@ The most simple usage
 
 ``` kotlin
 AppHead.create(R.drawable.ic_messenger) {
-     headView { onClick { .. } }
+     headView { onClick {..} }
  }.show(activity)
 ```
 
@@ -47,7 +47,7 @@ AppHead.create(R.drawable.ic_messenger_red) {
         onLongClick {..}
         alpha(0.9f)
         allowBounce(false)
-        onFinishInflate { .. }
+        onFinishInflate {..}
         setupImage {..}
         onDismiss {..}
         dismissOnClick(false)
@@ -62,7 +62,7 @@ AppHead.create(R.drawable.ic_messenger_red) {
         scaleRatio(1.0)
         drawableRes(R.drawable.ic_dismiss)
         onFinishInflate {..}
-        setupImage { }
+        setupImage {..}
     }
 }.show(this)
 ```
