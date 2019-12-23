@@ -195,6 +195,7 @@ you must define the rootview as `HeadView`, `DimissView` or `BadgeView`
 
 ## Credit
 [henrychuangtw/Android-ChatHead](https://github.com/henrychuangtw/Android-ChatHead)
+
 ### 🛡 License
 <details>
     <summary>
