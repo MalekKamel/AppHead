@@ -70,7 +70,6 @@ public class JavaSample {
                 .position(BadgeView.Position.BOTTOM_END)
                 .count("100");
 
-
         Head.Builder builder = new Head.Builder(R.drawable.ic_messenger_red)
                 .headView(headViewArgs)
                 .dismissView(dismissViewArgs)
