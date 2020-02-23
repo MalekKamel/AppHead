@@ -3,6 +3,7 @@ package com.apphead.sample;
 import androidx.fragment.app.FragmentActivity;
 
 import com.sha.apphead.AppHead;
+import com.sha.apphead.BadgeView;
 import com.sha.apphead.DismissView;
 import com.sha.apphead.Head;
 import com.sha.apphead.HeadView;
@@ -64,9 +65,16 @@ public class JavaSample {
                     return Unit.INSTANCE;
                 });
 
+        BadgeView.Args badgeViewArgs = new BadgeView.Args()
+                .layoutRes(R.layout.badge_view, R.id.tvCount)
+                .position(BadgeView.Position.BOTTOM_END)
+                .count("100");
+
+
         Head.Builder builder = new Head.Builder(R.drawable.ic_messenger_red)
                 .headView(headViewArgs)
-                .dismissView(dismissViewArgs);
+                .dismissView(dismissViewArgs)
+                .badgeView(badgeViewArgs);
 
         new AppHead(builder).show(activity);
     }
