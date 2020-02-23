@@ -11,6 +11,15 @@ import kotlin.Unit;
 
 public class JavaSample {
 
+    /**
+     * a sample for building the head view using Java
+     * Please note that the project supports Java 8 lambda in sample/build.gradle
+     *compileOptions {
+     *         targetCompatibility Config.javaVersion
+     *         sourceCompatibility Config.javaVersion
+     *}
+     * @param activity
+     */
     void appHead(FragmentActivity activity) {
 
         // build HeadView
