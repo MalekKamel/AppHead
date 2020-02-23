@@ -38,12 +38,10 @@ public class JavaSample {
                 .onFinishInflate(headView -> {
                     // your logic
                     return Unit.INSTANCE;
-
                 })
                 .setupImage(imageView -> {
                     // your logic
                     return Unit.INSTANCE;
-
                 })
                 .onDismiss(headView -> {
                     // your logic
